@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="jp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="index.css">
     <title>ルール</title>
 </head>
 <body>
@@ -24,4 +26,15 @@
         </div>
     </nav>
 </body>
+<script>
+    document.getElementById("home").onclick = async (e) => {
+        e.preventDefault();
+        document.location.assign('index.html');
+    }
+
+    document.getElementById("map").onclick = async (e) => {
+        e.preventDefault();
+        document.location.assign('map.html');
+    }
+</script>
 </html>
