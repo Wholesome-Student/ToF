@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="jp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +8,57 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <h1 id="title" class="title has-text-centered">Hello!</h1>
-    <div class="control">
-        <textarea id="msg" class="textarea is-info" name="msg" placeholder="例) World" row="1"></textarea>
+    <section class="section">
+        <div class="container">
+            <div class="columns is-mobile is-gapless is-centered is-vcentered">
+                <div class="column is-16">
+                    <h1 id="title" class="title has-text-centered">TREASURE on FIND</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="columns is-mobile is-gapless is-centered is-vcentered ">
+        <div class="box  has-text-centered">
+            <div class="box_title">POINT</div>
+            <p>
+                <span class="is-size-0 has-text-weight-bold">
+                    100
+                </span>
+            </p>
+            <div class="box_unit">pt</div>
+        </div>
     </div>
-    <div class="control buttons is-right">
-        <button id="greeting" class="button is-info">
-            <span>
-                とうこう
-            </span>
-        </button>
+    <div class="columns is-mobile is-gapless is-centered is-vcentered ">
+        <div class="box  has-text-centered">
+            <div class="box_title">獲得ポイント</div>
+            <p>
+                <span class="is-size-1 has-text-weight-bold">
+                    100 pt
+                </span>
+            </p>
+
+        </div>
     </div>
+    <nav class="navbar is-link is-fixed-bottom" role="navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-expanded is-block has-text-centered">
+                <i class="fa fa-home"></i>
+                <p class="is-size-3">HOME</p>
+            </a>
+            <a class="navbar-item is-expanded is-block has-text-centered">
+                <i class="fa fa-search"></i>
+                <p class="is-size-3">ITEM</p>
+            </a>
+            <a class="navbar-item is-expanded is-block has-text-centered">
+                <i class="fa fa-user"></i>
+                <p class="is-size-3">MAP</p>
+            </a>
+        </div>
+    </nav>
+    <button class="info">ℹ️ ルール</button>
+    <p><br></p>
+    <button class="info">⚙️ 設定</button>
+
 </body>
 <script type="module" src="./index.js"></script>
 </html>
