@@ -14,5 +14,34 @@
         <div id="outputMessage">No QR code detected.</div>
         <div hidden><b>Data:</b> <span id="outputData"></span></div>
     </div>
+    <nav class="navbar is-link is-fixed-bottom" role="navigation">
+        <div class="navbar-brand">
+            <a id="home" class="navbar-item is-expanded is-block has-text-centered">
+                <i class="fa fa-home"></i>
+                <p class="is-size-1">HOME</p>
+            </a>
+            <a id="item" class="navbar-item is-expanded is-block has-text-centered">
+                <i class="fa fa-search"></i>
+                <p class="is-size-1">ITEM</p>
+            </a>
+            <a id="map" class="navbar-item is-expanded is-block has-text-centered">
+                <i class="fa fa-user"></i>
+                <p class="is-size-1">MAP</p>
+            </a>
+        </div>
+    </nav>
 </body>
+<script>
+    document.getElementById("home").onclick = async (e) => {
+        e.preventDefault();
+        document.location.assign('index.html');
+    }
+    document.getElementById("item").onclick = async (e) => {
+        e.preventDefault();
+    }
+    document.getElementById("map").onclick = async (e) => {
+        e.preventDefault();
+        document.location.assign('map.html');
+    }
+</script>
 </html>
