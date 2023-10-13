@@ -30,10 +30,10 @@
     </div>
     <div class="columns is-mobile is-gapless is-centered is-vcentered ">
         <div class="box  has-text-centered">
-            <div class="box_title">獲得ポイント</div>
+            <div class="box_title">次の場所へ</div>
             <p>
-                <span class="is-size-1 has-text-weight-bold">
-                    100 pt
+                <span class="is-size-4 has-text-weight-bold">
+                    プール
                 </span>
             </p>
 
@@ -64,7 +64,9 @@
         e.preventDefault();
         document.location.assign('index.html');
     }
-
+    document.getElementById("item").onclick = async (e) => {
+        e.preventDefault();
+    }
     document.getElementById("map").onclick = async (e) => {
         e.preventDefault();
         document.location.assign('map.html');
@@ -73,7 +75,6 @@
         e.preventDefault();
         document.location.assign('rules.html');
     }
-
     document.getElementById("settings").onclick = async (e) => {
         e.preventDefault();
         document.location.assign('settings.html');
