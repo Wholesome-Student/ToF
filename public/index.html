@@ -58,6 +58,34 @@
     <button id="rules" class="info">ℹ️ ルール</button>
     <p><br></p>
     <button id="settings" class="info">⚙️ 設定</button>
+    <div id="menu-container">
+        <section class="section">
+            <div class="container">
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <a href="compass.html"><img alt="コンパス" src="img/compass.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="server.html"><img alt="bluetooth" src="img/status.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="register.html"><img alt="pin" src="img/pin.svg"></a>
+                    </div>
+                </div>
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <p class="has-text-centered">コンパス</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">サーバー</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">地点登録</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </body>
 <script>
     document.getElementById("home").onclick = async (e) => {
@@ -66,6 +94,7 @@
     }
     document.getElementById("item").onclick = async (e) => {
         e.preventDefault();
+        document.getElementById('menu-container').classList.toggle('open');
     }
     document.getElementById("map").onclick = async (e) => {
         e.preventDefault();
