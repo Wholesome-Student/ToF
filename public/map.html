@@ -1,67 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-  <style>
-    .image-container {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      position: relative;
-      touch-action: pan-zoom;
-    }
-
-    .image-container img {
-      display: block;
-      max-width: 100%;
-      max-height: 100%;
-      user-select: none;
-    }
-  </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
 </head>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+    }
+    .image-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .image-container img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+    .dot {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
 <body>
-  <div class="image-container">
-    <img src="img/map.svg" alt="Image">
-  </div>
-
-  <script>
-    let lastTouchDistance = 0;
-    let lastScale = 1;
+    <div class="image-container">
+        <img id="map" src="img/map.svg" alt="Image">
+        <div id="dot" class="dot"></div>
+    </div>
+</body>
+<script>
+    var imageContainer = document.querySelector('.image-container');
+    var image = imageContainer.querySelector('img');
+    var dot = document.getElementById('dot');
+    var initialDistance = 0;
+    var initialScale = 1;
+    var scaleFactor = 1;
 
     function handleTouchStart(event) {
-      const touches = event.touches;
-
-      if (touches.length === 2) {
-        lastTouchDistance = getTouchDistance(touches);
-      }
+        if (event.touches.length === 2) {
+            initialDistance = getDistance(event.touches[0], event.touches[1]);
+            initialScale = parseFloat(image.style.transform.replace('scale(', '').replace(')', ''));
+        }
     }
 
     function handleTouchMove(event) {
-      const touches = event.touches;
-
-      if (touches.length === 2) {
-        const touchDistance = getTouchDistance(touches);
-        const scale = lastScale * (touchDistance / lastTouchDistance);
-
-        const image = event.currentTarget;
-        image.style.transform = `scale(${scale})`;
-
-        lastTouchDistance = touchDistance;
-        lastScale = scale;
-      }
+        if (event.touches.length === 2) {
+            var currentDistance = getDistance(event.touches[0], event.touches[1]);
+            var scale = initialScale * (currentDistance / initialDistance);
+            image.style.transform = 'scale(' + scale + ')';
+            scaleFactor = scale;
+            setDotPosition(event.touches[0].clientX, event.touches[0].clientY);
+        }
     }
 
-    function getTouchDistance(touches) {
-      const touch1 = touches[0];
-      const touch2 = touches[1];
-
-      return Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+    function handleTouchEnd() {
+        initialDistance = 0;
+        initialScale = 1;
     }
 
-    const imageContainer = document.querySelector('.image-container');
+    function getDistance(touch1, touch2) {
+        var dx = touch1.clientX - touch2.clientX;
+        var dy = touch1.clientY - touch2.clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
     imageContainer.addEventListener('touchstart', handleTouchStart);
     imageContainer.addEventListener('touchmove', handleTouchMove);
-  </script>
-</body>
-</html>\
+    imageContainer.addEventListener('touchend', handleTouchEnd);
+
+    // 追加: 点の座標を設定する関数
+    function setDotPosition() {
+        const LN = 35.1044600;
+        const LS = 35.1025900;
+        const LW = 137.1466500;
+        const LE = 137.1496500;
+
+        let nowN = 35.10396;
+        let nowE = 137.14817;
+
+        var mapRect = document.getElementById("map").getBoundingClientRect();
+        var mapWidth = mapRect.right - mapRect.left;
+        var mapHeight = mapRect.bottom - mapRect.top;
+
+        let mapN = (nowN - LN) / (LS - LN) * mapHeight;
+        let mapE = (nowE - LW) / (LE - LW) * mapWidth;
+
+        console.log(mapN, mapE);
+        dot.style.left = mapE + mapRect.left + 'px';
+        dot.style.top = mapN + mapRect.top + 'px';
+    }
+
+    window.onload = function() {
+        setDotPosition();
+    }
+
+</script>
+</html>
