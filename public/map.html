@@ -1,40 +1,66 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="index.css">
-    <title>Document</title>
+  <meta charset="utf-8">
+  <title>位置情報取得サンプル2</title>
+
+  <!-- 動作処理 -->
+  <script>
+    // 現在地取得処理
+    function initMap() {
+      // Geolocation APIに対応している
+      if (navigator.geolocation) {
+        // 現在地を取得
+        navigator.geolocation.getCurrentPosition(
+          // 取得成功した場合
+          function(position) {
+            // 緯度・経度を変数に格納
+            var mapLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            // マップオプションを変数に格納
+            var mapOptions = {
+              zoom : 15,          // 拡大倍率
+              center : mapLatLng  // 緯度・経度
+            };
+            // マップオブジェクト作成
+            var map = new google.maps.Map(
+              document.getElementById("map"), // マップを表示する要素
+              mapOptions         // マップオプション
+            );
+            //　マップにマーカーを表示する
+            var marker = new google.maps.Marker({
+              map : map,             // 対象の地図オブジェクト
+              position : mapLatLng   // 緯度・経度
+            });
+          },
+          // 取得失敗した場合
+          function(error) {
+            // エラーメッセージを表示
+            switch(error.code) {
+              case 1: // PERMISSION_DENIED
+                alert("位置情報の利用が許可されていません");
+                break;
+              case 2: // POSITION_UNAVAILABLE
+                alert("現在位置が取得できませんでした");
+                break;
+              case 3: // TIMEOUT
+                alert("タイムアウトになりました");
+                break;
+              default:
+                alert("その他のエラー(エラーコード:"+error.code+")");
+                break;
+            }
+          }
+        );
+      // Geolocation APIに対応していない
+      } else {
+        alert("この端末では位置情報が取得できません");
+      }
+    }
+  </script>
 </head>
 <body>
-    <iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=137.14662551879886%2C35.097246691598976%2C137.1504878997803%2C35.10617352100835&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/#map=17/35.10171/137.14856">大きな地図を表示</a></small>
-    <nav class="navbar is-link is-fixed-bottom" role="navigation">
-        <div class="navbar-brand">
-            <a id="home" class="navbar-item is-expanded is-block has-text-centered">
-                <i class="fa fa-home"></i>
-                <p class="is-size-3">HOME</p>
-            </a>
-            <a id="item" class="navbar-item is-expanded is-block has-text-centered">
-                <i class="fa fa-search"></i>
-                <p class="is-size-3">ITEM</p>
-            </a>
-            <a id="map" class="navbar-item is-expanded is-block has-text-centered">
-                <i class="fa fa-user"></i>
-                <p class="is-size-3">MAP</p>
-            </a>
-        </div>
-    </nav>
+  <h1>位置情報取得サンプル2</h1>
+  <div id="map" style="width:400px; height:300px"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvO4adSzkpb25CUpwlvVyOQ-05UVSnt4k&callback=initMap"></script>
 </body>
-<script>
-    document.getElementById("home").onclick = async (e) => {
-        e.preventDefault();
-        document.location.assign('index.html');
-    }
-
-    document.getElementById("map").onclick = async (e) => {
-        e.preventDefault();
-        document.location.assign('map.html');
-    }
-</script>
 </html>

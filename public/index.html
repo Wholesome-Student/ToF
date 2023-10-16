@@ -6,8 +6,10 @@
     <title>Treasure on Find</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="index.css">
+    <script type="module" src="./index.js"></script>
 </head>
 <body>
+    <!-- アプリタイトル -->
     <section class="section ti">
         <div class="container">
             <div class="columns is-mobile is-gapless is-centered is-vcentered">
@@ -17,6 +19,9 @@
             </div>
         </div>
     </section>
+    <!-- アプリタイトル -->
+
+    <!-- ポイント -->
     <div class="columns is-mobile is-gapless is-centered is-vcentered ">
         <div class="box  has-text-centered">
             <div class="box_title">POINT</div>
@@ -28,6 +33,9 @@
             <div class="box_unit">pt</div>
         </div>
     </div>
+    <!-- ポイント -->
+
+    <!-- 次の場所 -->
     <div class="columns is-mobile is-gapless is-centered is-vcentered ">
         <div class="box  has-text-centered">
             <div class="box_title">次の場所へ</div>
@@ -36,9 +44,17 @@
                     プール
                 </span>
             </p>
-
         </div>
     </div>
+    <!-- 次の場所 -->
+
+    <!-- 中央のボタン -->
+    <button id="rules" class="info">ルール</button>
+    <p><br></p>
+    <button id="fullscreen" class="info">全画面化</button>
+    <!-- 中央のボタン -->
+
+    <!-- ボトムナビゲーション -->
     <nav class="navbar is-link is-fixed-bottom" role="navigation">
         <div class="navbar-brand">
             <a id="home" class="navbar-item is-expanded is-block has-text-centered">
@@ -55,9 +71,9 @@
             </a>
         </div>
     </nav>
-    <button id="rules" class="info">ℹ️ ルール</button>
-    <p><br></p>
-    <button id="settings" class="info">⚙️ 設定</button>
+    <!-- ボトムナビゲーション -->
+
+    <!-- [ITEM]モーダルウィンドウ -->
     <div id="menu-container">
         <section class="section">
             <div class="container">
@@ -86,27 +102,6 @@
             </div>
         </section>
     </div>
+    <!-- [ITEM]モーダルウィンドウ -->
 </body>
-<script>
-    document.getElementById("home").onclick = async (e) => {
-        e.preventDefault();
-        document.location.assign('index.html');
-    }
-    document.getElementById("item").onclick = async (e) => {
-        e.preventDefault();
-        document.getElementById('menu-container').classList.toggle('open');
-    }
-    document.getElementById("map").onclick = async (e) => {
-        e.preventDefault();
-        document.location.assign('map.html');
-    }
-    document.getElementById("rules").onclick = async (e) => {
-        e.preventDefault();
-        document.location.assign('rules.html');
-    }
-    document.getElementById("settings").onclick = async (e) => {
-        e.preventDefault();
-        document.location.assign('settings.html');
-    }
-</script>
 </html>
