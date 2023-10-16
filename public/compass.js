@@ -38,15 +38,15 @@ function orientation(event) {
     const degrees = alpha;
     //let degrees;
 
-    // if(os == "iphone") {
-    //     // webkitCompasssHeading値を採用
-    //     degrees = event.webkitCompassHeading;
+    if(os == "iphone") {
+        // webkitCompasssHeading値を採用
+        degrees = event.webkitCompassHeading;
 
-    // } else {
-    //     // deviceorientationabsoluteイベントのalphaを補正
-    //     // degrees = compassHeading(alpha, beta, gamma);
-    //     degrees = alpha;
-    // }
+    } else {
+        // deviceorientationabsoluteイベントのalphaを補正
+        degrees = compassHeading(alpha, beta, gamma);
+        // degrees = alpha;
+    }
 
     let direction;
     if ((degrees > 337.5 && degrees < 360) || (degrees > 0 && degrees < 22.5)) {
