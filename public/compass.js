@@ -43,7 +43,8 @@ function orientation(event) {
 
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
-        degrees = compassHeading(alpha, beta, gamma);
+        // degrees = compassHeading(alpha, beta, gamma);
+        degrees = alpha;
     }
 
     let direction;
