@@ -46,27 +46,7 @@ function orientation(event) {
         degrees = compassHeading(alpha, beta, gamma);
     }
 
-    let direction;
-    if (
-        (degrees > 337.5 && degrees < 360) ||
-        (degrees > 0 && degrees < 22.5)
-    ) {
-        direction = "北";
-    } else if (degrees > 22.5 && degrees < 67.5) {
-        direction = "北東";
-    } else if (degrees > 67.5 && degrees < 112.5) {
-        direction = "東";
-    } else if (degrees > 112.5 && degrees < 157.5) {
-        direction = "東南";
-    } else if (degrees > 157.5 && degrees < 202.5) {
-        direction = "南";
-    } else if (degrees > 202.5 && degrees < 247.5) {
-        direction = "南西";
-    } else if (degrees > 247.5 && degrees < 292.5) {
-        direction = "西";
-    } else if (degrees > 292.5 && degrees < 337.5) {
-        direction = "北西";
-    }
+    let direction = get8directions(degrees);
 
     document.querySelector("#direction").innerHTML =
         direction + " : " + degrees;
