@@ -35,22 +35,25 @@ function orientation(event) {
     let alpha = event.alpha;
     let beta = event.beta;
     let gamma = event.gamma;
-
     let degrees;
+
     if(os == "iphone") {
         // webkitCompasssHeading値を採用
         degrees = event.webkitCompassHeading;
 
-    }else{
+    } else {
         // deviceorientationabsoluteイベントのalphaを補正
         degrees = compassHeading(alpha, beta, gamma);
     }
 
     let direction;
-    if (
-        (degrees > 337.5 && degrees < 360) ||
-        (degrees > 0 && degrees < 22.5)
-    ) {
+    direction = get8directions(degrees);
+
+    document.querySelector("#direction").innerHTML = direction + " : " + degrees;
+}
+
+function get8directions(degrees) {
+    if ((degrees > 337.5 && degrees < 360) || (degrees > 0 && degrees < 22.5)) {
         direction = "北";
     } else if (degrees > 22.5 && degrees < 67.5) {
         direction = "北東";
@@ -67,13 +70,7 @@ function orientation(event) {
     } else if (degrees > 292.5 && degrees < 337.5) {
         direction = "北西";
     }
-
-    document.querySelector("#direction").innerHTML =
-        direction + " : " + degrees;
-    document.querySelector("#absolute").innerHTML = absolute;
-    document.querySelector("#alpha").innerHTML = alpha;
-    document.querySelector("#beta").innerHTML = beta;
-    document.querySelector("#gamma").innerHTML = gamma;
+    return direction;
 }
 
 // 端末の傾き補正（Android用）
