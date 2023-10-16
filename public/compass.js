@@ -50,6 +50,10 @@ function orientation(event) {
     direction = get8directions(degrees);
 
     document.querySelector("#direction").innerHTML = direction + " : " + degrees;
+    document.querySelector("#absolute").innerHTML = absolute;
+    document.querySelector("#alpha").innerHTML = alpha;
+    document.querySelector("#beta").innerHTML = beta;
+    document.querySelector("#gamma").innerHTML = gamma;
 }
 
 function get8directions(degrees) {
