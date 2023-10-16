@@ -80,14 +80,14 @@
     imageContainer.addEventListener('touchend', handleTouchEnd);
 
     // 追加: 点の座標を設定する関数
-    function setDotPosition() {
+    function setDotPosition(gps_latitude, gps_longitude) {
         const LN = 35.1044600;
         const LS = 35.1025900;
         const LW = 137.1466500;
         const LE = 137.1496500;
 
-        let nowN = 35.10396;
-        let nowE = 137.14817;
+        let nowN = gps_latitude;
+        let nowE = gps_longitude;
 
         var mapRect = document.getElementById("map").getBoundingClientRect();
         var mapWidth = mapRect.right - mapRect.left;
@@ -102,7 +102,16 @@
     }
 
     window.onload = function() {
-        setDotPosition();
+        if ('geolocation' in navigator) {
+            const geolocation = navigator.geolocation;
+            geolocation.getCurrentPosition((position) => {
+                const gps_latitude = position.coords.latitude;
+                const gps_longitude = position.coords.longitude;
+                setDotPosition(gps_latitude, gps_longitude);
+            });
+        } else {
+            console.error('this browser has not support geolocation.');
+        }
     }
 
 </script>
