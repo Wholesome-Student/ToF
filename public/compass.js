@@ -71,6 +71,7 @@ function orientation(event) {
     document.querySelector("#alpha").innerHTML = alpha;
     document.querySelector("#beta").innerHTML = beta;
     document.querySelector("#gamma").innerHTML = gamma;
+    document.getElementById('image').style.transform = 'rotate(' + degrees + 'deg)';
 }
 
 // 端末の傾き補正（Android用）

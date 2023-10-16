@@ -3,11 +3,16 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>Document</title>
         <script type="module" src="./compass.js"></script>
     </head>
-
+    <style>
+        .rotated-image {
+          transform: rotate(0deg); /* 初期値は0度 */
+        }
+    </style>
     <body>
         <ul>
             <input type="button" id="permit" value="SafariでDeviceOrientationを許可"/>
@@ -17,5 +22,14 @@
             <li>【beta】<span id="beta"></span></li>
             <li>【gamma】<span id="gamma"></span></li>
         </ul>
+        <section class="section">
+            <div class="container">
+              <div class="field">
+                <div class="control">
+                  <img id="image" class="rotated-image" src="img/bluetooth.svg" alt="回転した画像">
+                </div>
+              </div>
+            </div>
+          </section>
     </body>
 </html>
