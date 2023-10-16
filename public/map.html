@@ -1,66 +1,61 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>位置情報取得サンプル2</title>
-
-  <!-- 動作処理 -->
-  <script>
-    // 現在地取得処理
-    function initMap() {
-      // Geolocation APIに対応している
-      if (navigator.geolocation) {
-        // 現在地を取得
-        navigator.geolocation.getCurrentPosition(
-          // 取得成功した場合
-          function(position) {
-            // 緯度・経度を変数に格納
-            var mapLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            // マップオプションを変数に格納
-            var mapOptions = {
-              zoom : 15,          // 拡大倍率
-              center : mapLatLng  // 緯度・経度
-            };
-            // マップオブジェクト作成
-            var map = new google.maps.Map(
-              document.getElementById("map"), // マップを表示する要素
-              mapOptions         // マップオプション
-            );
-            //　マップにマーカーを表示する
-            var marker = new google.maps.Marker({
-              map : map,             // 対象の地図オブジェクト
-              position : mapLatLng   // 緯度・経度
-            });
-          },
-          // 取得失敗した場合
-          function(error) {
-            // エラーメッセージを表示
-            switch(error.code) {
-              case 1: // PERMISSION_DENIED
-                alert("位置情報の利用が許可されていません");
-                break;
-              case 2: // POSITION_UNAVAILABLE
-                alert("現在位置が取得できませんでした");
-                break;
-              case 3: // TIMEOUT
-                alert("タイムアウトになりました");
-                break;
-              default:
-                alert("その他のエラー(エラーコード:"+error.code+")");
-                break;
-            }
-          }
-        );
-      // Geolocation APIに対応していない
-      } else {
-        alert("この端末では位置情報が取得できません");
-      }
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <style>
+    .image-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
     }
-  </script>
+    .image-container img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+  </style>
 </head>
 <body>
-  <h1>位置情報取得サンプル2</h1>
-  <div id="map" style="width:400px; height:300px"></div>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvO4adSzkpb25CUpwlvVyOQ-05UVSnt4k&callback=initMap"></script>
+  <div class="container">
+    <div class="image-container">
+      <img id="myImage" src="img/map.svg" alt="Image">
+    </div>
+    <div class="buttons">
+      <button id="zoomInButton" class="button is-primary">拡大</button>
+      <button id="zoomOutButton" class="button is-primary">縮小</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var scale = 1.0;
+      var image = document.getElementById("myImage");
+      var zoomInButton = document.getElementById("zoomInButton");
+      var zoomOutButton = document.getElementById("zoomOutButton");
+
+      zoomInButton.addEventListener("click", function() {
+        scale += 0.1;
+        image.style.transform = "scale(" + scale + ")";
+      });
+
+      zoomOutButton.addEventListener("click", function() {
+        scale -= 0.1;
+        image.style.transform = "scale(" + scale + ")";
+      });
+
+      // スワイプ移動の実装例（ライブラリを使用せずに純粋なJavaScriptで）
+      var startX, startY;
+      image.addEventListener("touchstart", function(event) {
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
+      });
+
+      image.addEventListener("touchmove", function(event) {
+        var deltaX = event.touches[0].clientX - startX;
+        var deltaY = event.touches[0].clientY - startY;
+        image.style.transform = "translate(" + deltaX + "px, " + deltaY + "px)";
+      });
+    });
+  </script>
 </body>
 </html>
