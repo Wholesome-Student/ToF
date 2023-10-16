@@ -14,22 +14,15 @@
         }
     </style>
     <body>
-        <ul>
-            <input type="button" id="permit" value="SafariでDeviceOrientationを許可"/>
-            <li>【方角】<span id="direction"></span></li>
-            <li>【absolute】<span id="absolute"></span></li>
-            <li>【alpha】<span id="alpha"></span></li>
-            <li>【beta】<span id="beta"></span></li>
-            <li>【gamma】<span id="gamma"></span></li>
-        </ul>
         <section class="section">
             <div class="container">
-              <div class="field">
-                <div class="control">
-                  <img id="image" class="rotated-image" src="img/needle.svg" alt="回転した画像">
+                <div class="columns is-mobile is-centered">
+                    <figure class="image control is-128x128">
+                        <img id="image" class="rotated-image" src="img/needle.svg" alt="回転した画像">
+                    </figure>
                 </div>
-              </div>
             </div>
-          </section>
+        </section>
+        <input type="button" id="permit" value="SafariでDeviceOrientationを許可"/>
     </body>
 </html>
