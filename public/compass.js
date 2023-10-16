@@ -31,21 +31,22 @@ function init() {
 
 // ジャイロスコープと地磁気をセンサーから取得
 function orientation(event) {
-    let absolute = event.absolute;
-    let alpha = event.alpha;
-    let beta = event.beta;
-    let gamma = event.gamma;
-    let degrees;
+    const absolute = event.absolute;
+    const alpha = event.alpha;
+    const beta = event.beta;
+    const gamma = event.gamma;
+    const degrees = alpha;
+    //let degrees;
 
-    if(os == "iphone") {
-        // webkitCompasssHeading値を採用
-        degrees = event.webkitCompassHeading;
+    // if(os == "iphone") {
+    //     // webkitCompasssHeading値を採用
+    //     degrees = event.webkitCompassHeading;
 
-    } else {
-        // deviceorientationabsoluteイベントのalphaを補正
-        // degrees = compassHeading(alpha, beta, gamma);
-        degrees = alpha;
-    }
+    // } else {
+    //     // deviceorientationabsoluteイベントのalphaを補正
+    //     // degrees = compassHeading(alpha, beta, gamma);
+    //     degrees = alpha;
+    // }
 
     let direction;
     if ((degrees > 337.5 && degrees < 360) || (degrees > 0 && degrees < 22.5)) {
