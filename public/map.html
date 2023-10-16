@@ -9,13 +9,14 @@
       height: 100%;
       overflow: hidden;
       position: relative;
+      touch-action: pan-zoom;
     }
 
     .image-container img {
       display: block;
       max-width: 100%;
       max-height: 100%;
-      touch-action: none;
+      user-select: none;
     }
   </style>
 </head>
@@ -25,59 +26,42 @@
   </div>
 
   <script>
-    function zoomImage(event) {
-      event.preventDefault();
+    let lastTouchDistance = 0;
+    let lastScale = 1;
 
-      const image = event.currentTarget;
-      const zoomFactor = 1.2;
+    function handleTouchStart(event) {
+      const touches = event.touches;
 
-      let scale = 1;
-      if (event.deltaY < 0) {
-        scale *= zoomFactor;
-      } else {
-        scale /= zoomFactor;
+      if (touches.length === 2) {
+        lastTouchDistance = getTouchDistance(touches);
       }
-
-      image.style.transform = `scale(${scale})`;
     }
 
-    function moveImage(event) {
-      event.preventDefault();
+    function handleTouchMove(event) {
+      const touches = event.touches;
 
-      const image = event.currentTarget;
-      const touch = event.touches[0] || event.changedTouches[0];
+      if (touches.length === 2) {
+        const touchDistance = getTouchDistance(touches);
+        const scale = lastScale * (touchDistance / lastTouchDistance);
 
-      let lastX = touch.clientX;
-      let lastY = touch.clientY;
+        const image = event.currentTarget;
+        image.style.transform = `scale(${scale})`;
 
-      function handleMove(moveEvent) {
-        const touch = moveEvent.touches[0] || moveEvent.changedTouches[0];
-
-        const deltaX = touch.clientX - lastX;
-        const deltaY = touch.clientY - lastY;
-
-        const rect = image.getBoundingClientRect();
-        const newX = rect.left + deltaX;
-        const newY = rect.top + deltaY;
-
-        image.style.transform = `translate(${newX}px, ${newY}px)`;
-
-        lastX = touch.clientX;
-        lastY = touch.clientY;
+        lastTouchDistance = touchDistance;
+        lastScale = scale;
       }
+    }
 
-      function handleEnd() {
-        image.removeEventListener('touchmove', handleMove);
-        image.removeEventListener('touchend', handleEnd);
-      }
+    function getTouchDistance(touches) {
+      const touch1 = touches[0];
+      const touch2 = touches[1];
 
-      image.addEventListener('touchmove', handleMove);
-      image.addEventListener('touchend', handleEnd);
+      return Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
     }
 
     const imageContainer = document.querySelector('.image-container');
-    imageContainer.addEventListener('wheel', zoomImage);
-    imageContainer.addEventListener('touchstart', moveImage);
+    imageContainer.addEventListener('touchstart', handleTouchStart);
+    imageContainer.addEventListener('touchmove', handleTouchMove);
   </script>
 </body>
-</html>
+</html>\
