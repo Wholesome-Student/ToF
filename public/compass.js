@@ -35,8 +35,8 @@ function orientation(event) {
     const alpha = event.alpha;
     const beta = event.beta;
     const gamma = event.gamma;
-    const degrees = alpha;
-    //let degrees;
+    //const degrees = alpha;
+    let degrees;
 
     if(os == "iphone") {
         // webkitCompasssHeading値を採用
