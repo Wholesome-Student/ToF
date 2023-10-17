@@ -8,12 +8,22 @@
     <link rel="stylesheet" href="register.css">
 </head>
 <body>
+    <!-- カメラ準備 -->
     <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
+    <!-- カメラ準備 -->
+    
+    <!-- カメラ映像 -->
     <canvas id="canvas" hidden></canvas>
+    <!-- カメラ映像 -->
+
+    <!-- QRコード内容 -->
     <div id="output" hidden>
         <div id="outputMessage">No QR code detected.</div>
         <div hidden><b>Data:</b> <span id="outputData"></span></div>
     </div>
+    <!-- QRコード内容 -->
+
+    <!-- ボトムナビゲーション -->
     <nav class="navbar is-link is-fixed-bottom" role="navigation">
         <div class="navbar-brand">
             <a id="home" class="navbar-item is-expanded is-block has-text-centered">
@@ -30,6 +40,7 @@
             </a>
         </div>
     </nav>
+    <!-- ボトムナビゲーション -->
 </body>
 <script>
     document.getElementById("home").onclick = async (e) => {

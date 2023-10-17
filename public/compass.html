@@ -1,35 +1,24 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Document</title>
-        <script type="module" src="./compass.js"></script>
-    </head>
-    <style>
-        .rotated-image {
-          transform: rotate(0deg); /* 初期値は0度 */
-        }
-    </style>
-    <body>
-        <ul>
-            <input type="button" id="permit" value="SafariでDeviceOrientationを許可"/>
-            <li>【方角】<span id="direction"></span></li>
-            <li>【absolute】<span id="absolute"></span></li>
-            <li>【alpha】<span id="alpha"></span></li>
-            <li>【beta】<span id="beta"></span></li>
-            <li>【gamma】<span id="gamma"></span></li>
-        </ul>
-        <section class="section">
-            <div class="container">
-              <div class="field">
-                <div class="control">
-                  <img id="image" class="rotated-image" src="img/needle.svg" alt="回転した画像">
-                </div>
-              </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./compass.css">
+    <script type="module" src="./compass.js"></script>
+</head>
+<body>
+    <input type="button" id="permit" value="SafariでDeviceOrientationを許可"/>
+    <section class="section">
+        <div class="container">
+            <div class="field">
+            <div class="control">
+                <img id="image" class="rotated-image" src="img/needle.svg" alt="回転した画像">
             </div>
-          </section>
-    </body>
+            </div>
+        </div>
+    </section>
+</body>
 </html>
