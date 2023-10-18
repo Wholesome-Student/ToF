@@ -64,6 +64,8 @@ function orientation(event) {
     } else if (degrees > 292.5 && degrees < 337.5) {
         direction = "北西";
     }
+
+    document.getElementById('image').style.transform = 'rotate(' + degrees + 'deg)';
 }
 
 // 端末の傾き補正（Android用）
