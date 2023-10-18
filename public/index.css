@@ -57,7 +57,7 @@
     font-size: 2em;
 }
 
-#menu-container {
+#item-mordal {
     position: fixed;
     bottom: -100%;
     left: 0;
@@ -67,6 +67,20 @@
     transition: bottom 0.3s ease-in-out;
 }
   
-#menu-container.open {
+#item-mordal.open {
+    bottom: 0;
+}
+
+#other-mordal {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 40vh; /* 画面の1/3の高さ */
+    background-color: #f1f1f1;
+    transition: bottom 0.3s ease-in-out;
+}
+  
+#other-mordal.open {
     bottom: 0;
 }

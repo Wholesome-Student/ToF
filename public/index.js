@@ -5,12 +5,18 @@ document.getElementById("home").onclick = async (e) => {
 
 document.getElementById("item").onclick = async (e) => {
     e.preventDefault();
-    document.getElementById('menu-container').classList.toggle('open');
+    document.getElementById('item-mordal').classList.toggle('open');
+    if (document.getElementById('other-mordal').classList.contains('open')) {
+        document.getElementById('other-mordal').classList.toggle('open');
+    }
 }
 
-document.getElementById("map").onclick = async (e) => {
+document.getElementById("other").onclick = async (e) => {
     e.preventDefault();
-    document.location.assign('map.html');
+    document.getElementById('other-mordal').classList.toggle('open');
+    if (document.getElementById('item-mordal').classList.contains('open')) {
+        document.getElementById('item-mordal').classList.toggle('open');
+    }
 }
 
 document.getElementById("rules").onclick = async (e) => {
