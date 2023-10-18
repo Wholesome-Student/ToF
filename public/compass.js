@@ -23,7 +23,7 @@ function init() {
             orientation,
             true
         );
-    } else{
+    } else {
         window.alert("PC未対応サンプル");
     }
 }
@@ -35,7 +35,6 @@ function orientation(event) {
     const alpha = event.alpha;
     const beta = event.beta;
     const gamma = event.gamma;
-    //const degrees = alpha;
     let degrees;
 
     if(os == "iphone") {
@@ -68,11 +67,6 @@ function orientation(event) {
 
     document.querySelector("#direction").innerHTML =
         direction + " : " + degrees;
-    document.querySelector("#absolute").innerHTML = absolute;
-    document.querySelector("#alpha").innerHTML = alpha;
-    document.querySelector("#beta").innerHTML = beta;
-    document.querySelector("#gamma").innerHTML = gamma;
-    document.getElementById('image').style.transform = 'rotate(' + degrees + 'deg)';
 }
 
 // 端末の傾き補正（Android用）
