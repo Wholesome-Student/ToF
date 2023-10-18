@@ -67,7 +67,7 @@ function orientation(event) {
     }
 
     document.querySelector("#direction").innerHTML = direction + " : " + degrees;
-    document.getElementById('image').style.transform = 'rotate(' + degrees + 'deg)';
+    document.getElementById('image').style.transform = 'rotate(' + 90 + 'deg)';
 }
 
 // 端末の傾き補正（Android用）
