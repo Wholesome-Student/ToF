@@ -66,8 +66,10 @@ function orientation(event) {
         direction = "北西";
     }
 
+    let rotate = 360 - degrees;
+
     document.querySelector("#direction").innerHTML = direction + " : " + degrees;
-    document.getElementById('image').style.transform = 'rotate(' + (360 - degrees) + 'deg)';
+    document.getElementById('image').style.transform = 'rotate(' + rotate + 'deg)';
 }
 
 // 端末の傾き補正（Android用）
