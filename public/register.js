@@ -2,7 +2,6 @@ const video = document.createElement("video");
 const canvasElement = document.getElementById("canvas");
 const canvas = canvasElement.getContext("2d");
 const loadingMessage = document.getElementById("loadingMessage");
-const outputContainer = document.getElementById("output");
 
 // ウィンドウのサイズに応じてビデオ要素のサイズを調整する
 function adjustVideoSize() {
@@ -46,7 +45,6 @@ function tick() {
         // loadingを非表示
         loadingMessage.hidden = true;
         canvasElement.hidden = false;
-        outputContainer.hidden = false;
 
 
         canvasElement.height = video.videoHeight;
