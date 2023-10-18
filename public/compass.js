@@ -39,8 +39,8 @@ function orientation(event) {
 
     if(os == "iphone") {
         // webkitCompasssHeading値を採用
-        //degrees = event.webkitCompassHeading;
-        degrees = compassHeading(alpha, beta, gamma);
+        degrees = event.webkitCompassHeading;
+        // degrees = compassHeading(alpha, beta, gamma);
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         //degrees = compassHeading(alpha, beta, gamma);
