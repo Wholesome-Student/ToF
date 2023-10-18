@@ -1,6 +1,23 @@
 // 長押し時間
 let pressStartTime;
 
+/* タイマー */
+const deadline = new Date('2023-10-19T00:00:00');
+const countdownInterval = setInterval(countdown, 1000);
+
+function countdown() {
+    const now = new Date();
+    const remain = Math.floor((deadline - now) / 1000);
+    const hours = Math.floor(remain / 3600).toString().padStart(2, '0');
+    const minutes = Math.floor((remain - 3600 * hours) / 60).toString().padStart(2, '0');
+    const seconds = Math.floor(remain % 60).toString().padStart(2, '0');
+    document.getElementById("timer").textContent = [hours, minutes, seconds].join(':');
+}
+
+window.onload = function () {
+    countdown();
+}
+
 /* ボトムナビゲーション */
 // [HOME]
 document.getElementById('home').addEventListener('touchstart', function(event) {
@@ -12,9 +29,7 @@ document.getElementById('home').addEventListener('touchend', function(event) {
     const pressDuration = pressEndTime - pressStartTime;
   
     if (pressDuration >= 750) {
-        var now = new Date();
         // 長押しの場合の処理（test.htmlにジャンプ）
-        document.getElementById("timer").textContent = now.getHours() + " : " + now.getMinutes();
         fullscreen();
     } else {
         // 短押しの場合の処理（index.htmlにジャンプ）
