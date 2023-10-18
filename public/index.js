@@ -65,7 +65,7 @@ function fullscreen() {
                 _element.mozRequestFullScreen();
             } else {
                 if (_element.webkitRequestFullscreen) {
-                    _element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                    _element.webkitRequestFullscreen();
                 }
             }
         }
