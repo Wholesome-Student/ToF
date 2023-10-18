@@ -1,8 +1,26 @@
-document.getElementById("home").onclick = async (e) => {
-    e.preventDefault();
-    document.location.assign('index.html');
-}
+// 長押し時間
+let pressStartTime;
 
+/* ボトムナビゲーション */
+// [HOME]
+document.getElementById('home').addEventListener('touchstart', function(event) {
+    pressStartTime = new Date().getTime();
+});
+
+document.getElementById('home').addEventListener('touchend', function(event) {
+    const pressEndTime = new Date().getTime();
+    const pressDuration = pressEndTime - pressStartTime;
+  
+    if (pressDuration >= 1000) {
+        // 長押しの場合の処理（test.htmlにジャンプ）
+        fullscreen();
+    } else {
+        // 短押しの場合の処理（index.htmlにジャンプ）
+        document.location.assign('index.html');
+    }
+});
+
+// [ITEM]
 document.getElementById("item").onclick = async (e) => {
     e.preventDefault();
     document.getElementById('item-mordal').classList.toggle('open');
@@ -11,6 +29,7 @@ document.getElementById("item").onclick = async (e) => {
     }
 }
 
+// [OTHER]
 document.getElementById("other").onclick = async (e) => {
     e.preventDefault();
     document.getElementById('other-mordal').classList.toggle('open');
@@ -19,13 +38,12 @@ document.getElementById("other").onclick = async (e) => {
     }
 }
 
-document.getElementById("rules").onclick = async (e) => {
-    e.preventDefault();
-    document.location.assign('rules.html');
-}
+/*
+ * 機能実装
+*/
 
-document.getElementById("fullscreen").onclick = async (e) => {
-    e.preventDefault();
+// 全画面化
+function fullscreen() {
     if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement) {
         if (document.cancelFullScreen) {
         document.cancelFullScreen();
