@@ -12,7 +12,9 @@ document.getElementById('home').addEventListener('touchend', function(event) {
     const pressDuration = pressEndTime - pressStartTime;
   
     if (pressDuration >= 750) {
+        var now = new Date();
         // 長押しの場合の処理（test.htmlにジャンプ）
+        document.getElementById("timer").textContent = now.getHours() + " : " + now.getMinutes();
         fullscreen();
     } else {
         // 短押しの場合の処理（index.htmlにジャンプ）
