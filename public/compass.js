@@ -44,7 +44,7 @@ function orientation(event) {
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         //degrees = compassHeading(alpha, beta, gamma);
-        degrees = alpha;
+        degrees = 360 - alpha;
     }
 
     let direction;
