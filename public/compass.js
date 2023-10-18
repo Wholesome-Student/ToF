@@ -66,6 +66,7 @@ function orientation(event) {
         direction = "北西";
     }
 
+    document.querySelector("#direction").innerHTML = direction + " : " + degrees;
     document.getElementById('image').style.transform = 'rotate(' + degrees + 'deg)';
 }
 
