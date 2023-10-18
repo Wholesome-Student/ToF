@@ -1,31 +1,19 @@
-var video = document.createElement("video");
-var canvasElement = document.getElementById("canvas");
-var canvas = canvasElement.getContext("2d");
-var loadingMessage = document.getElementById("loadingMessage");
-var outputContainer = document.getElementById("output");
-var outputMessage = document.getElementById("outputMessage");
-var outputData = document.getElementById("outputData");
-
-/* 辺の描画 */
-function drawLine(begin, end, color) {
-    canvas.beginPath();
-    canvas.moveTo(begin.x, begin.y);
-    canvas.lineTo(end.x, end.y);
-    canvas.lineWidth = 4;
-    canvas.strokeStyle = color;
-    canvas.stroke();
-}
+const video = document.createElement("video");
+const canvasElement = document.getElementById("canvas");
+const canvas = canvasElement.getContext("2d");
+const loadingMessage = document.getElementById("loadingMessage");
+const outputContainer = document.getElementById("output");
 
 // ウィンドウのサイズに応じてビデオ要素のサイズを調整する
 function adjustVideoSize() {
-    var windowWidth = window.innerWidth;
-    var windowHeight = window.innerHeight;
-    var videoWidth = video.videoWidth;
-    var videoHeight = video.videoHeight;
-    var videoAspectRatio = videoWidth / videoHeight;
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    const videoWidth = video.videoWidth;
+    const videoHeight = video.videoHeight;
+    const videoAspectRatio = videoWidth / videoHeight;
 
-    var targetWidth;
-    var targetHeight;
+    let targetWidth;
+    let targetHeight;
 
     // ウィンドウのアスペクト比とビデオのアスペクト比を比較して、適切なサイズを計算する
     if (windowWidth / windowHeight > videoAspectRatio) {
@@ -64,23 +52,16 @@ function tick() {
         canvasElement.height = video.videoHeight;
         canvasElement.width = video.videoWidth;
         canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-        var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+        const imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
         // QRコードの読み取り
-        var code = jsQR(imageData.data, imageData.width, imageData.height, {
+        const code = jsQR(imageData.data, imageData.width, imageData.height, {
             inversionAttempts: "dontInvert",
         });
+        /* QRコードを検出 */
         if (code) {
-            // QRコードの場所に四角形を描画
-            drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
-            drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
-            drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
-            drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
-            outputMessage.hidden = true;
-            outputData.parentElement.hidden = false;
-            outputData.innerText = code.data;
+            console.log(code.data);
         } else {
-            outputMessage.hidden = false;
-            outputData.parentElement.hidden = true;
+            ;
         }
     }
     requestAnimationFrame(tick);
