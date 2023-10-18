@@ -1,0 +1,22 @@
+.ranking-header {
+    background-color: #f14668;
+    color: #ffffff;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.ranking-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.ranking-subtitle {
+    font-size: 18px;
+}
+.ranking-table {
+    background-color: #ffffff;
+    border-radius: 6px;
+}
+  .ranking-rank {
+    font-size: 20px;
+    font-weight: bold;
+    color: #f14668;
+}
