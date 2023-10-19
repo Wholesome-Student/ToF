@@ -40,7 +40,7 @@ function calculateSpeed() {
     if (speed > maxSpeed) {
         maxSpeed = speed;
     }
-    maxElement.textContent = '最高速度: ' + maxspeed;
+    maxElement.textContent = '最高速度: ' + maxSpeed;
   }
 }
 
