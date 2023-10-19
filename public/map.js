@@ -16,8 +16,8 @@ function handleTouchStart(event) {
 
 function handleTouchMove(event) {
     if (event.touches.length === 2) {
-        var currentDistance = getDistance(event.touches[0], event.touches[1]);
-        var scale = initialScale * (currentDistance / initialDistance);
+        const currentDistance = getDistance(event.touches[0], event.touches[1]);
+        const scale = initialScale * (currentDistance / initialDistance);
         image.style.transform = 'scale(' + scale + ')';
         scaleFactor = scale;
         setDotPosition(event.touches[0].clientX, event.touches[0].clientY);
@@ -30,8 +30,8 @@ function handleTouchEnd() {
 }
 
 function getDistance(touch1, touch2) {
-    var dx = touch1.clientX - touch2.clientX;
-    var dy = touch1.clientY - touch2.clientY;
+    const dx = touch1.clientX - touch2.clientX;
+    const dy = touch1.clientY - touch2.clientY;
     return Math.sqrt(dx * dx + dy * dy);
 }
 
