@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>NFC Reader</title>
+</head>
+<body>
+  <button id="startButton">NFCリーダーを起動</button>
+  <div id="tagData"></div>
+
+  <script>
+    const startButton = document.getElementById('startButton');
+    const tagDataDiv = document.getElementById('tagData');
+
+    startButton.addEventListener('click', async () => {
+      try {
+        const nfcPermission = await navigator.permissions.query({ name: 'nfc' });
+        if (nfcPermission.state === 'granted') {
+          startNFCReader();
+        } else if (nfcPermission.state === 'prompt') {
+          const permissionStatus = await navigator.permissions.request({ name: 'nfc' });
+          if (permissionStatus.state === 'granted') {
+            startNFCReader();
+          } else {
+            console.log('NFCアクセスが拒否されました');
+          }
+        } else {
+          console.log('NFCアクセスが拒否されています');
+        }
+      } catch (error) {
+        console.log('NFCリーダーの起動中にエラーが発生しました:', error);
+      }
+    });
+
+    async function startNFCReader() {
+      try {
+        const reader = new NDEFReader();
+        await reader.scan();
+
+        reader.addEventListener('reading', event => {
+          const records = event.message.records;
+          const tagData = records.map(record => record.data).join(', ');
+          tagDataDiv.textContent = tagData;
+        });
+
+        console.log('NFCリーダーが起動しました');
+      } catch (error) {
+        console.log('NFCリーダーの起動中にエラーが発生しました:', error);
+      }
+    }
+  </script>
+</body>
+</html>
