@@ -5,49 +5,33 @@
   <title>NFC Reader</title>
 </head>
 <body>
-  <button id="startButton">NFCリーダーを起動</button>
-  <div id="tagData"></div>
-
+    <input type="text" id="writeText">
+    <button id="writeButton">追加</button>
+    <div id="writeLog"></div>
+  
   <script>
-    const startButton = document.getElementById('startButton');
-    const tagDataDiv = document.getElementById('tagData');
+    let inputText = document.getElementById("writeText");
+    const writeButton = document.getElementById("writeButton");
+    const writeLog = document.getElementById("writeLog");
 
-    startButton.addEventListener('click', async () => {
-      try {
-        const nfcPermission = await navigator.permissions.query({ name: 'nfc' });
-        if (nfcPermission.state === 'granted') {
-          startNFCReader();
-        } else if (nfcPermission.state === 'prompt') {
-          const permissionStatus = await navigator.permissions.request({ name: 'nfc' });
-          if (permissionStatus.state === 'granted') {
-            startNFCReader();
-          } else {
-            console.log('NFCアクセスが拒否されました');
-          }
-        } else {
-          console.log('NFCアクセスが拒否されています');
+    writeButton.addEventListener("click", async () => {
+    console.log("write button clicked");
+    writeLog.textContent = await "please touch the NFC tag!";
+    try {
+        let writeText = inputText.value
+        console.log(writeText)
+        if (!writeText) {
+        writeLog.textContent = "empty";
+        return;
         }
-      } catch (error) {
-        console.log('NFCリーダーの起動中にエラーが発生しました:', error);
-      }
-    });
-
-    async function startNFCReader() {
-      try {
         const reader = new NDEFReader();
-        await reader.scan();
-
-        reader.addEventListener('reading', event => {
-          const records = event.message.records;
-          const tagData = records.map(record => record.data).join(', ');
-          tagDataDiv.textContent = tagData;
-        });
-
-        console.log('NFCリーダーが起動しました');
-      } catch (error) {
-        console.log('NFCリーダーの起動中にエラーが発生しました:', error);
-      }
+        await reader.write(writeText);
+        writeLog.textContent = `write: ${writeText}`;
+    } catch (error) {
+        writeLog.textContent = error;
+        console.log(error);
     }
+    });
   </script>
 </body>
 </html>
