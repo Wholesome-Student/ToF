@@ -1,9 +1,11 @@
-var imageContainer = document.querySelector('.image-container');
-var image = imageContainer.querySelector('img');
-var dot = document.getElementById('dot');
-var initialDistance = 0;
-var initialScale = 1;
-var scaleFactor = 1;
+const imageContainer = document.querySelector('.image-container');
+const image = imageContainer.querySelector('img');
+const dot = document.getElementById('dot');
+let initialDistance = 0;
+let initialScale = 1;
+let scaleFactor = 1;
+
+const updateGPS = setInterval(setDotPosition, 1000);
 
 function handleTouchStart(event) {
     if (event.touches.length === 2) {
@@ -39,36 +41,31 @@ imageContainer.addEventListener('touchend', handleTouchEnd);
 
 // 追加: 点の座標を設定する関数
 function setDotPosition(gps_latitude, gps_longitude) {
+    /* 地図の範囲(緯度経度) */
     const LN = 35.1044600;
     const LS = 35.1025900;
     const LW = 137.1466500;
     const LE = 137.1496500;
 
-    let nowN = gps_latitude;
-    let nowE = gps_longitude;
-    console.log(nowN, nowE);
+    const geolocation = navigator.geolocation;
+    geolocation.getCurrentPosition((position) => {
+        const nowN = position.coords.latitude;
+        const nowE = position.coords.longitude;
+        console.log(nowN, nowE);
 
-    var mapRect = document.getElementById("map").getBoundingClientRect();
-    var mapWidth = mapRect.right - mapRect.left;
-    var mapHeight = mapRect.bottom - mapRect.top;
+        const mapRect = document.getElementById("map").getBoundingClientRect();
+        const mapWidth = mapRect.right - mapRect.left;
+        const mapHeight = mapRect.bottom - mapRect.top;
 
-    let mapN = (nowN - LN) / (LS - LN) * mapHeight;
-    let mapE = (nowE - LW) / (LE - LW) * mapWidth;
+        const mapN = (nowN - LN) / (LS - LN) * mapHeight;
+        const mapE = (nowE - LW) / (LE - LW) * mapWidth;
 
-    console.log(mapN, mapE);
-    dot.style.left = mapE + mapRect.left + 'px';
-    dot.style.top = mapN + mapRect.top + 'px';
+        console.log(mapN, mapE);
+        dot.style.left = mapE + mapRect.left + 'px';
+        dot.style.top = mapN + mapRect.top + 'px';
+    });
 }
 
 window.onload = function() {
-    if ('geolocation' in navigator) {
-        const geolocation = navigator.geolocation;
-        geolocation.getCurrentPosition((position) => {
-            const gps_latitude = position.coords.latitude;
-            const gps_longitude = position.coords.longitude;
-            setDotPosition(gps_latitude, gps_longitude);
-        });
-    } else {
-        console.error('this browser has not support geolocation.');
-    }
+    setDotPosition();
 }
