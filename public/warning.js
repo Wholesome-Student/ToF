@@ -2,8 +2,11 @@
 let magneticData = null;
 let accelerationData = null;
 
+let maxSpeed = 0;
+
 // HTMLの要素を取得
 const speedElement = document.getElementById('speed');
+const maxElement = document.getElementById('maxspeed');
 
 // 地磁気センサーのデータを取得するイベントリスナー
 window.addEventListener('deviceorientation', function(event) {
@@ -33,6 +36,11 @@ function calculateSpeed() {
 
     // 移動速度を表示
     speedElement.textContent = '速度: ' + speed;
+
+    if (speed > maxSpeed) {
+        maxSpeed = speed;
+    }
+    maxElement.textContent = '最高速度: ' + maxSpeed;
   }
 }
 
