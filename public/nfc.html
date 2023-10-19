@@ -7,6 +7,7 @@
 <body>
     <input type="text" id="writeText">
     <button id="writeButton">追加</button>
+    <button id="writeButton">読込</button>
     <div id="log"></div>
   
   <script>
@@ -34,11 +35,11 @@
     }
     });
     readButton.addEventListener("click", async () => {
-        readLog.textContent = await "clicked read button";
+        log.textContent = await "clicked read button";
         try {
             const reader = new NDEFReader();
             await reader.scan();
-            readLog.textContent = "scan started";
+            log.textContent = "scan started";
 
             reader.addEventListener("error", () => {
             console.log("Error");
@@ -52,11 +53,11 @@
             if (recordType === "text") {
                 const textDecoder = new TextDecoder(encoding);
                 const text = textDecoder.decode(data);
-                readLog.textContent = text;
+                log.textContent = text;
             }
             });
         } catch (error) {
-            readLog.textContent = error;
+            log.textContent = error;
         }
     });
   </script>
