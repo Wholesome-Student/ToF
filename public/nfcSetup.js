@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>NFC Reader</title>
-</head>
-<body>
-    <input type="text" id="writeText">
-    <button id="writeButton">追加</button>
-    <button id="readButton">読込</button>
-    <div id="log"></div>
-  
-  <script>
-    let inputText = document.getElementById("writeText");
+let inputText = document.getElementById("writeText");
     const writeButton = document.getElementById("writeButton");
     const readButton = document.getElementById("readButton");
     const log = document.getElementById("log");
@@ -60,6 +47,3 @@
             log.textContent = error;
         }
     });
-  </script>
-</body>
-</html>
