@@ -46,7 +46,6 @@ function tick() {
         loadingMessage.hidden = true;
         canvasElement.hidden = false;
 
-
         canvasElement.height = video.videoHeight;
         canvasElement.width = video.videoWidth;
         canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
@@ -63,4 +62,32 @@ function tick() {
         }
     }
     requestAnimationFrame(tick);
+}
+
+// [HOME]
+document.getElementById('home').addEventListener('touchstart', function(event) {
+    pressStartTime = new Date().getTime();
+});
+
+document.getElementById('home').onclick = async (e) => {
+    e.preventDefault();
+    document.location.assign('../');
+}
+
+// [ITEM]
+document.getElementById("item").onclick = async (e) => {
+    e.preventDefault();
+    document.getElementById('item-mordal').classList.toggle('open');
+    if (document.getElementById('other-mordal').classList.contains('open')) {
+        document.getElementById('other-mordal').classList.toggle('open');
+    }
+}
+
+// [OTHER]
+document.getElementById("other").onclick = async (e) => {
+    e.preventDefault();
+    document.getElementById('other-mordal').classList.toggle('open');
+    if (document.getElementById('item-mordal').classList.contains('open')) {
+        document.getElementById('item-mordal').classList.toggle('open');
+    }
 }
