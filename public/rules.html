@@ -4,53 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="rules.css">
+    <script type="module" src="./rules.js"></script>
     <title>ルール</title>
 </head>
 <body>
-    <h1 id="headline"><ルール></h1>
-    <section>
-        <p class="text">⓵見学場所の大まかな位置情報をゲット！</p>
-        <p class="text">⓶ジャイロセンサーとBluetoothとGPSの３つのアイテムを使って見学場所を探す</p>
-        <p class="text">⓷見学場所についたら NFC タグ（もしくは QR コード）で到着の確認をする</p>
-        <p class="text">⓸見学後に見学場所についてのクイズを答える</p>
-        <p class="text">　クイズは全問１０点でランキングも表示！</p>
-        <p class="text">⓹３か所周り終わったら図書館に戻る！！</p>
+    <!-- ルール(タイトル) -->
+    <section class="section ti">
+        <div class="container">
+            <div class="columns is-mobile is-gapless is-centered is-vcentered">
+                <div class="column is-16">
+                    <h1 id="title" class="title has-text-centered"><ルール></h1>
+                </div>
+            </div>
+        </div>
     </section>
-    <section>
-        <h1 id="headline"><禁止事項></h1>
-        <p class="text">・見学会中は走らないでください</p>
-        <p class="text">・面白さがなくなってしまうので他の人との情報共有はしないでください</p>
-        <p class="text">   </p>
-        <p class="text2">今回は実証実験を手伝ってもらって本当にありがとうございます！施設見学を楽しんで貰えたら嬉しいです</p>
+    <!-- ルール(タイトル) -->
+
+    <!-- ルール(箇条書き) -->
+    <div class="content">
+        <ol>
+            <li>見学場所の大まかな位置情報をゲット！</li>
+            <li>ジャイロセンサーとBluetoothとGPSの3つのアイテムを使って見学場所を探す</li>
+            <li>見学場所についたら NFC タグ（もしくは QR コード）で到着の確認をする</li>
+            <li>見学後に見学場所についてのクイズを答える</li>
+            <li>クイズは全問１０点でランキングも表示！</li>
+            <li>３か所周り終わったら図書館に戻る！！</li>
+        </ol>
+    </div>
+    <!-- ルール(箇条書き) -->
+
+    <!-- 禁止事項(タイトル) -->
+    <section class="section ti">
+        <div class="container">
+            <div class="columns is-mobile is-gapless is-centered is-vcentered">
+                <div class="column is-16">
+                    <h1 id="title" class="title has-text-centered"><禁止事項></h1>
+                </div>
+            </div>
+        </div>
     </section>
+    <!-- 禁止事項(タイトル) -->
+
+    <!-- 禁止事項(箇条書き) -->
+    <div class="content">
+        <ul>
+            <li>見学会中は走らないでください</li>
+            <li>面白さがなくなってしまうので他の人との情報共有はしないでください</li>
+        </ul>
+    </div>
+    <!-- 禁止事項(箇条書き) -->
+
+    <!-- ひとこと -->
+    <section>
+        <p class="is-size-5 has-text-centered">今回は実証実験を手伝ってもらって<br>本当にありがとうございます！<br>施設見学を楽しんで貰えたら嬉しいです！</p>
+    </section>
+    <!-- ひとこと -->
     
-    <style>
-        #headline{
-            color: black;
-            font-size: 25px;
-            font-weight: 900;
-            text-align: center;
-            margin-top: 3%;
-            margin-bottom: 3%;
-        }
-        .text{
-            color: black;
-            font-size: 17px;
-            line-height: 1;
-            margin-right: 3%;
-            margin-left: 3%;
-        }
-        .text2{
-            font-weight: 500;
-            color: black;
-            font-size: 17px;
-            text-align: center;
-            margin-top: 2%;
-            line-height: 1;
-    </style>
-    
-    
+    <!-- ボトムナビゲーション -->
     <nav class="navbar is-link is-fixed-bottom" role="navigation">
         <div class="navbar-brand">
             <a id="home" class="navbar-item is-expanded is-block has-text-centered">
@@ -61,22 +72,74 @@
                 <i class="fa fa-search"></i>
                 <p class="is-size-3">ITEM</p>
             </a>
-            <a id="map" class="navbar-item is-expanded is-block has-text-centered">
+            <a id="other" class="navbar-item is-expanded is-block has-text-centered">
                 <i class="fa fa-user"></i>
-                <p class="is-size-3">MAP</p>
+                <p class="is-size-3">OTHER</p>
             </a>
         </div>
     </nav>
-</body>
-<script>
-    document.getElementById("home").onclick = async (e) => {
-        e.preventDefault();
-        document.location.assign('index.html');
-    }
+    <!-- ボトムナビゲーション -->
 
-    document.getElementById("map").onclick = async (e) => {
-        e.preventDefault();
-        document.location.assign('map.html');
-    }
-</script>
+    <!-- [ITEM]モーダルウィンドウ -->
+    <div id="item-mordal">
+        <section class="section">
+            <div class="container">
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <a href="compass.html"><img alt="コンパス" src="img/compass.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="server.html"><img alt="bluetooth" src="img/status.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="register.html"><img alt="pin" src="img/pin.svg"></a>
+                    </div>
+                </div>
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <p class="has-text-centered">コンパス</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">サーバー</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">地点登録</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- [ITEM]モーダルウィンドウ -->
+
+    <!-- [OTHER]モーダルウィンドウ -->
+    <div id="other-mordal">
+        <section class="section">
+            <div class="container">
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <a href="map.html"><img alt="map" src="img/map.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="settings.html"><img alt="settings" src="img/settings.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="rules.html"><img alt="rules" src="img/rules.svg"></a>
+                    </div>
+                </div>
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <p class="has-text-centered">マップ</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">設定</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">コード</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- [OTHER]モーダルウィンドウ -->
+</body>
 </html>

@@ -77,7 +77,7 @@ document.getElementById('home').addEventListener('touchstart', function(event) {
 
 document.getElementById('home').onclick = async (e) => {
     e.preventDefault();
-    document.location.assign('./index.html');
+    document.location.assign('./home.html');
 }
 
 // [ITEM]
