@@ -11,7 +11,6 @@ const mySqlClient = await new Client().connect({
     db: Deno.env.get("MYSQL_DBNAME")
 })
 
-
 // // SELECTなど、取得用SQLを実行する
 const selectResult = await mySqlClient.query(`SELECT * FROM teacher_futaba;`)
 console.log(selectResult)
