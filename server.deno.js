@@ -23,6 +23,24 @@ async function searchUser(username) {
     return response.rows.length;
 }
 
+/* ユーザーのログイン */
+async function signin(username, password) {
+    const response = await sql.execute(`
+        SELECT * FROM login WHERE (
+            ??, ??
+        ) = (
+            ?, ?
+        ) LIMIT 1;
+    `, [
+        "username",
+        "password",
+        username,
+        password
+        ]
+    )
+    return response.rows.length;
+}
+
 /* ユーザーを追加 */
 async function signup(username, password) {
     await sql.execute(`
@@ -47,8 +65,8 @@ serve(async (req) => {
     if (req.method === "POST" && pathname === "/signup") {
         try {
             const reqJson = await req.json();
-            const loginExists = await searchUser(reqJson.username);
-            if (!loginExists) { // ユーザー未登録時
+            const userExists = await searchUser(reqJson.username);
+            if (!userExists) { // ユーザー未登録時
                 signup(reqJson.username, reqJson.password);
                 return new Response(null, {
                     status: 200,
@@ -56,6 +74,26 @@ serve(async (req) => {
             } else {            // ユーザー既登録時
                 return new Response(null, {
                     status: 409,
+                });
+            }
+        } catch (error) {       // その他のエラー
+            console.error(error);
+            return new Response(null, {
+                status: 500,
+            });
+        }
+    } else if (req.method === "POST" && pathname === "/signin") {
+        try {
+            const reqJson = await req.json();
+            const loginExists = await signin(reqJson.username, reqJson.password);
+            if (loginExists) {  // サインイン成功
+                signup(reqJson.username, reqJson.password);
+                return new Response(null, {
+                    status: 200,
+                });
+            } else {            // サインイン失敗
+                return new Response(null, {
+                    status: 401,
                 });
             }
         } catch (error) {       // その他のエラー

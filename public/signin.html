@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login - Free Bulma template</title>
+    <title>signin</title>
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css" />
     <link rel="stylesheet" type="text/css" href="./signin.css">
 </head>
@@ -12,36 +12,50 @@
         <div class="hero-body">
             <div class="container has-text-centered">
                 <div class="column is-4 is-offset-4">
-                    <h3 class="title has-text-black">Login</h3>
-                    <hr class="login-hr">
+                    <!-- タイトル -->
+                    <h3 class="title has-text-black">ログイン</h3>
+                    <!-- タイトル -->
+
+                    <!-- フォーム -->
                     <div class="box">
                         <form>
+                            <!-- Username -->
                             <div class="field">
                                 <div class="control">
-                                    <input class="input is-large" type="email" placeholder="Your Email" autofocus="">
+                                    <label for="username" class="is-size-5">ユーザー名(英数字のみ)</label>
+                                    <input class="input is-large" type="text" id="username" pattern="^[0-9a-zA-Z]+$" placeholder="Username" autofocus required>
                                 </div>
+                            </div>
+                            <!-- Username -->
+
+                            <!-- Password -->
+                            <div class="field">
+                                <div class="control">
+                                    <label for="password" class="is-size-5">パスワード(英数字のみ)</label>
+                                    <input class="input is-large" type="password" id="password" pattern="^[0-9a-zA-Z]+$" placeholder="Password" required>
+                                </div>
+                            </div>
+                            <!-- Password -->
+
+                            <div>
+                                <span id="log" class="has-text-danger"> </span>
+                                <br>
                             </div>
 
-                            <div class="field">
-                                <div class="control">
-                                    <input class="input is-large" type="password" placeholder="Your Password">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class="checkbox">
-                                    <input type="checkbox"> Remember me</input>                                    
-                                </label>
-                            </div>
-                            <button class="button is-block is-info is-large is-fullwidth">Login</button>
+                            <!-- signin -->
+                            <button id="signin" class="button is-block is-info is-large is-fullwidth">Sign In</button>
+                            <!-- signin -->
                         </form>
                     </div>
-                    <p class="has-text-grey">
-                        <a href="">Sign Up</a>
-                    </p>
+                    <!-- フォーム -->
+                    
+                    <!-- signin -->
+                    <button id="signup" class="button is-block is-link is-large is-fullwidth">Sign Up</button>
+                    <!-- signin -->
                 </div>
             </div>
         </div>
     </section>
-    <script async type="text/javascript" src="./signin.js"></script>
+    <script type="module" src="./signin.js"></script>
 </body>
 </html>
