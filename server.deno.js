@@ -11,8 +11,20 @@ const sql = await new Client().connect({
     db: Deno.env.get("MYSQL_DBNAME")
 });
 
+/* ユーザー名を検索 */
+async function searchUser(username) {
+    const response = await sql.execute(`
+        SELECT * FROM login WHERE ?? = ? LIMIT 1;
+    `, [
+        "username",
+        username
+        ]
+    )
+    return response.rows.length;
+}
+
+/* ユーザーを追加 */
 async function signup(username, password) {
-    // ユーザー追加
     await sql.execute(`
         INSERT INTO login (
             ??, ??
@@ -31,14 +43,22 @@ async function signup(username, password) {
 serve(async (req) => {
     const pathname = new URL(req.url).pathname;
 
+    /* ユーザー登録 */
     if (req.method === "POST" && pathname === "/signup") {
         try {
             const reqJson = await req.json();
-            signup(reqJson.username, reqJson.password);
-            return new Response(null, {
-                status: 200,
-            });
-        } catch (error) {
+            const loginExists = await searchUser(reqJson.username);
+            if (!loginExists) { // ユーザー未登録時
+                signup(reqJson.username, reqJson.password);
+                return new Response(null, {
+                    status: 200,
+                });
+            } else {            // ユーザー既登録時
+                return new Response(null, {
+                    status: 409,
+                });
+            }
+        } catch (error) {       // その他のエラー
             console.error(error);
             return new Response(null, {
                 status: 500,

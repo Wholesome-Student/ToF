@@ -1,3 +1,4 @@
+// 使用可能な文字列か確認
 function checkRegex(s) {
     const regex = /^[a-zA-Z0-9]+$/;
   
@@ -31,10 +32,11 @@ document.getElementById("signup").onclick = async(e) => {
                     password: password,
                 })
             });
-            console.log(res.status);
             if (res.status === 200) {
                 localStorage.setItem("username", username);
                 window.location.assign("../");
+            } else if (res.status === 409) {
+                document.getElementById("log").textContent = "ユーザー名がすでに登録されています";
             } else {
                 document.getElementById("log").textContent = "サーバー側の不具合が発生しました";
             }
@@ -43,4 +45,9 @@ document.getElementById("signup").onclick = async(e) => {
             console.log(error);
         }
     }
+}
+
+document.getElementById("signin").onclick = async(e) => {
+    e.preventDefault();
+    window.location.assign("./signin.html");
 }
