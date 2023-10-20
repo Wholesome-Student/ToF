@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>signup</title>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="./signup.css">
+</head>
+<body>
+    <section class="hero is-success is-fullheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="column is-4 is-offset-4">
+                    <!-- タイトル -->
+                    <h3 class="title has-text-black">ユーザー登録</h3>
+                    <!-- タイトル -->
+
+                    <!-- フォーム -->
+                    <div class="box">
+                        <form>
+                            <!-- Username -->
+                            <div class="field">
+                                <div class="control">
+                                    <label for="username" class="is-size-5">ユーザー名(英数字のみ)</label>
+                                    <input class="input is-large" type="text" id="username" pattern="^[0-9a-zA-Z]+$" placeholder="Username" autofocus required>
+                                </div>
+                            </div>
+                            <!-- Username -->
+
+                            <!-- Password -->
+                            <div class="field">
+                                <div class="control">
+                                    <label for="password" class="is-size-5">パスワード(英数字のみ)</label>
+                                    <input class="input is-large" type="password" id="password" pattern="^[0-9a-zA-Z]+$" placeholder="Password" required>
+                                </div>
+                            </div>
+                            <!-- Password -->
+
+                            <div>
+                                <span id="log" class="has-text-danger"> </span>
+                                <br>
+                            </div>
+
+                            <!-- signup -->
+                            <button id="signup" class="button is-block is-info is-large is-fullwidth">Sign Up</button>
+                            <!-- signup -->
+                        </form>
+                    </div>
+                    <!-- フォーム -->
+                    
+                    <!-- signin -->
+                    <button class="button is-block is-link is-large is-fullwidth">Sign In</button>
+                    <!-- signin -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <script type="module" src="./signup.js"></script>
+</body>
+</html>
