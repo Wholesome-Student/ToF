@@ -34,7 +34,7 @@ document.getElementById("signup").onclick = async(e) => {
             });
             if (res.status === 200) {
                 localStorage.setItem("username", username);
-                window.location.assign("../");
+                window.location.assign("./home.html");
             } else if (res.status === 409) {
                 document.getElementById("log").textContent = "ユーザー名がすでに登録されています";
             } else {

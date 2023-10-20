@@ -33,7 +33,7 @@ document.getElementById('home').addEventListener('touchend', function(event) {
         fullscreen();
     } else {
         // 短押しの場合の処理（index.htmlにジャンプ）
-        document.location.assign('index.html');
+        document.location.assign('./home.html');
     }
 });
 
