@@ -1,3 +1,55 @@
-.rotated-image {
+#needle {
     transform: rotate(0deg); /* 初期値は0度 */
+}
+
+.compass {
+    position: relative;
+  }
+  
+.compass .needle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2);
+}
+
+/* ボトムナビゲーション */
+.navbar-item{
+    border: solid 1px #FFFFFF;
+    width: 33.3333%;
+    height: 4em;
+    background: #2589d0
+    
+}
+
+/* [ITEM]モーダルウィンドウ */
+#item-mordal {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 40vh;
+    background-color: #f1f1f1;
+    transition: bottom 0.3s ease-in-out;
+}
+
+/* [ITEM]モーダルウィンドウの表示 */
+#item-mordal.open {
+    bottom: 0;
+}
+
+/* [OTHER]モーダルウィンドウ */
+#other-mordal {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 40vh; /* 画面の1/3の高さ */
+    background-color: #f1f1f1;
+    transition: bottom 0.3s ease-in-out;
+}
+  
+/* [OTHER]モーダルウィンドウ */
+#other-mordal.open {
+    bottom: 0;
 }
