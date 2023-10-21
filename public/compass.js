@@ -59,7 +59,7 @@ function orientation(event) {
 }
 
 /* 目的地への方角を取得 */
-function dirG(lon1, lat1, lon2, lat2) {
+function dirG(lon2, lat2, lon1, lat1) {
     const degToRad = Math.PI / 180;
     const radToDeg = 180 / Math.PI;
 
