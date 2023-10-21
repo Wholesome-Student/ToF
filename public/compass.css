@@ -1,12 +1,13 @@
 #needle {
-    transform: rotate(0deg); /* 初期値は0度 */
+    transform: rotate(0deg);
+}
+
+.circle {
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .compass {
-    position: relative;
-  }
-  
-.compass .needle {
     position: absolute;
     top: 50%;
     left: 50%;
