@@ -38,6 +38,15 @@ navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).th
     requestAnimationFrame(tick);
 });
 
+function drawLine(begin, end, color) {
+    canvas.beginPath();
+    canvas.moveTo(begin.x, begin.y);
+    canvas.lineTo(end.x, end.y);
+    canvas.lineWidth = 4;
+    canvas.strokeStyle = color;
+    canvas.stroke();
+}
+
 function tick() {
     loadingMessage.innerText = "⌛ Loading video..."
     /* 映像が有効になった時 */
@@ -56,9 +65,11 @@ function tick() {
         });
         /* QRコードを検出 */
         if (code) {
+            drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
+            drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
+            drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
+            drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
             console.log(code.data);
-        } else {
-            ;
         }
     }
     requestAnimationFrame(tick);

@@ -18,7 +18,7 @@ def create_text_qrcode(text, filename):
     img.save(filename)
 
 # テキストデータ
-text_data = "Hello!"
+text_data = "e798582707b6ca5e930168259d61e797020f89190dea9faf6064ff45c3a7860c"
 
 # QRコードを作成して保存
-create_text_qrcode(text_data, "連絡通路.png")
+create_text_qrcode(text_data, "2.png")
