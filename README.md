@@ -9,4 +9,4 @@ https://github.com/jigintern/intern-dev-tutorial/blob/main/deno/README.md
 https://github.com/Wholesome-Student/ToF/deployments から見れます
 
 # 現在の状況
-https://sweet-weasel-28.deno.dev
+https://tof.deno.dev
