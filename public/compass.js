@@ -54,7 +54,8 @@ function orientation(event) {
         const rotate = degrees - dirG(lon1, lat1, lon2, lat2);
         console.log(rotate);
         // コンパスの針を回転
-        document.getElementById('needle').style.transform = 'rotate(' + rotate + 'deg)';
+        // document.getElementById('needle').style.transform = 'rotate(' + rotate + 'deg)';
+        document.getElementById('needle').style.transform = 'rotate(' + degrees + 'deg)';
     })
 }
 
