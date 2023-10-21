@@ -85,7 +85,7 @@ function orientation(event) {
         const lon2 = 35.075436;
         const lat2 = 137.143422;
         console.log(dirG(lon1, lat1, lon2, lat2));
-        const rotate = degrees - dirG(lon1, lat1, lon2, lat2);
+        const rotate = degrees - dirG(lon1, lat1, lon2, lat2) + 180;
         console.log(rotate);
         // コンパスの針を回転
         document.getElementById('needle').style.transform = 'rotate(' + rotate + 'deg)';
