@@ -64,6 +64,12 @@ async function rank() {
     return response.rows;
 }
 
+/* QR */
+async function qrlist() {
+    const response = await sql.execute(`SELECT * FROM LOCATION;`)
+    return response.rows;
+}
+
 serve(async (req) => {
     const pathname = new URL(req.url).pathname;
 
@@ -111,6 +117,18 @@ serve(async (req) => {
     } else if (req.method === "POST" && pathname === "/rank") {
         try {
             const ranking = await rank();
+            return new Response(JSON.stringify(ranking), {
+                status: 200,
+            });
+        } catch (error) {       // その他のエラー
+            console.error(error);
+            return new Response(null, {
+                status: 500,
+            });
+        }
+    } else if (req.method === "POST" && pathname === "/qrlist") {
+        try {
+            const ranking = await qrlist();
             return new Response(JSON.stringify(ranking), {
                 status: 200,
             });

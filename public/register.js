@@ -3,6 +3,8 @@ const canvasElement = document.getElementById("canvas");
 const canvas = canvasElement.getContext("2d");
 const loadingMessage = document.getElementById("loadingMessage");
 
+let enable = 1;
+
 // ウィンドウのサイズに応じてビデオ要素のサイズを調整する
 function adjustVideoSize() {
     const windowWidth = window.innerWidth;
@@ -28,7 +30,38 @@ function adjustVideoSize() {
     video.style.height = targetHeight + "px";
 }
 
+// localStorage.setItem("location", 0);
+
+function decodeLS(ls) {
+    let ans = ls;
+    let lslist = [false, false, false]
+    if (ans >= 4) {
+        ans -= 4;
+        lslist[2] = true;
+    }
+    if (ans >= 2) {
+        ans -= 2;
+        lslist[1] = true;
+    }
+    if (ans >= 1) {
+        lslist[0] = true;
+    }
+    return lslist;
+}
+
 window.addEventListener("resize", adjustVideoSize);
+
+const qrjson = await fetch("/qrlist", {
+    method: 'POST',
+    headers: {'Content-Type': 'text/plain'},
+    body: null
+});
+
+let json;
+
+if (qrjson.status === 200) {
+    json = await qrjson?.json();
+}
 
 // フロントカメラから映像を取得
 navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function(stream) {
@@ -69,17 +102,30 @@ function tick() {
             drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
             drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
             drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
-            console.log(code.data);
+            for (let i=0;i<3;i++) {
+                if (code.data == json[i]["qr"]) {
+                    let lsv = Number(localStorage.getItem("location"));
+                    const checklist = decodeLS(lsv);
+                    console.log(checklist);
+                    if (!checklist[i]) {
+                        enable = 0;
+                        lsv += 2 ** i;
+                        localStorage.setItem("location", lsv);
+                        document.location.assign('./check.html'
+                            + '?location=' + json[i]["qr"]);
+                    } else {
+                        alert("同じ地点を2回登録することはできません!");
+                    }
+                }
+            }
         }
     }
-    requestAnimationFrame(tick);
+    if (enable) {
+        requestAnimationFrame(tick);
+    }
 }
 
 // [HOME]
-document.getElementById('home').addEventListener('touchstart', function(event) {
-    pressStartTime = new Date().getTime();
-});
-
 document.getElementById('home').onclick = async (e) => {
     e.preventDefault();
     document.location.assign('./home.html');
