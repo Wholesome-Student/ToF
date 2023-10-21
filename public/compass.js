@@ -60,6 +60,8 @@ function compassHeading(alpha, beta, gamma) {
 /* 端末の方角を取得 */
 function orientation(event) {
     const alpha = event.alpha;
+    const beta = event.beta;
+    const gamma = event.gamma;
     let degrees;
 
     if(os == "iphone") {
