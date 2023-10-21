@@ -43,10 +43,10 @@ function orientation(event) {
     // 35.09326980912067, 137.15660045747703
 
     // lon -> 経度(N), lat -> 緯度(E)
-    const lon1 = 137.1554000139451;
-    const lat1 = 35.09392818712668;
-    const lon2 = 137.15660045747703;
-    const lat2 = 35.09326980912067;
+    const lon1 = 35.07803967024858;
+    const lat1 = 137.14159672367097;
+    const lon2 = 35.075436;
+    const lat2 = 137.143422;
     const rotate = degrees - dirG(lon1, lat1, lon2, lat2);
     console.log(rotate);
     // コンパスの針を回転
