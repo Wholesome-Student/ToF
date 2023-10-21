@@ -3,6 +3,16 @@
     padding: 1em;
 }
 
+hr {
+    margin: 0;
+    width: 60%;
+    border: none;
+    height: 2px;
+    background-color: #000;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* ボトムナビゲーション */
 .navbar-item{
     border: solid 1px #FFFFFF;
