@@ -67,8 +67,8 @@ function orientation(event) {
     if(os == "iphone") {
         degrees = 360 - event.webkitCompassHeading;
     } else {
-        degrees = compassHeading(alpha, beta, gamma);
-        // degrees = alpha;
+        // degrees = compassHeading(alpha, beta, gamma);
+        degrees = alpha;
     }
 
 
