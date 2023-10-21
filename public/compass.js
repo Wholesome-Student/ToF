@@ -51,7 +51,7 @@ function orientation(event) {
         const lon2 = 35.075436;
         const lat2 = 137.143422;
         console.log(dirG(lon1, lat1, lon2, lat2));
-        const rotate = degrees - dirG(lon1, lat1, lon2, lat2);
+        const rotate = degrees - dirG(lon1, lat1, lon2, lat2) - 90;
         console.log(rotate);
         // コンパスの針を回転
         document.getElementById('needle').style.transform = 'rotate(' + rotate + 'deg)';
@@ -59,7 +59,7 @@ function orientation(event) {
 }
 
 /* 目的地への方角を取得 */
-function dirG(lon2, lat2, lon1, lat1) {
+function dirG(lon1, lat1, lon2, lat2) {
     const degToRad = Math.PI / 180;
     const radToDeg = 180 / Math.PI;
 
