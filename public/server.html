@@ -4,43 +4,144 @@
     <title>ランキング</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="./server.css">
+    <script type="module" src="./server.js"></script>
 </head>
 <body>
     <section class="section">
         <div class="container">
-            <div class="ranking-header">
-                <h1 class="ranking-title">ランキング</h1>
-                <h2 class="ranking-subtitle">結果時点</h2>
+            <!-- タイトル -->
+            <h1 class="title has-text-centered">ランキング</h1>
+            <!-- タイトル -->
+
+            <hr class="title">
+
+            <!-- 1位 -->
+            <div class="columns ranking is-mobile is-gapless is-centered is-vcentered">
+                <div class="box is-1">
+                    <div class="box_rank is-size-4">1位</div>
+                    <p id="username-1" class="box_username has-text-centered">
+                        ユーザーA
+                    </p>
+                    <hr class="fancy">
+                    <p id="point-1" class="box_score has-text-centered">
+                        120 pt
+                    </p>
+                </div>
             </div>
-            <div class="table-container">
-                <table class="table is-striped is-fullwidth ranking-table">
-                    <thead>
-                        <tr>
-                            <th>順位</th>
-                            <th>名前</th>
-                            <th>ポイント</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="ranking-rank">1</td>
-                            <td>山田太郎</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td class="ranking-rank">2</td>
-                            <td>佐藤花子</td>
-                            <td>95</td>
-                        </tr>
-                        <tr>
-                            <td class="ranking-rank">3</td>
-                            <td>田中次郎</td>
-                            <td>90</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- 1位 -->
+
+            <!-- 2位 -->
+            <div class="columns ranking is-mobile is-gapless is-centered is-vcentered">
+                <div class="box is-2">
+                    <div class="box_rank is-size-4">2位</div>
+                    <p id="username-2" class="box_username has-text-centered">
+                        ユーザーB
+                    </p>
+                    <hr class="fancy">
+                    <p id="point-2" class="box_score has-text-centered">
+                        80 pt
+                    </p>
+                </div>
             </div>
+            <!-- 2位 -->
+
+            <!-- 3位 -->
+            <div class="columns ranking is-mobile is-gapless is-centered is-vcentered">
+                <div class="box is-3">
+                    <div class="box_rank is-size-4">3位</div>
+                    <p id="username-3" class="box_username has-text-centered">
+                        ユーザーC
+                    </p>
+                    <hr class="fancy">
+                    <p id="point-3" class="box_score has-text-centered">
+                        60 pt
+                    </p>
+                </div>
+            </div>
+            <!-- 3位 -->
         </div>
     </section>
+
+    <!-- ボトムナビゲーション -->
+    <nav class="navbar is-link is-fixed-bottom" role="navigation">
+        <div class="navbar-brand">
+            <a id="home" class="navbar-item is-expanded is-block has-text-centered">
+                <i class="fa fa-home"></i>
+                <p class="is-size-3">HOME</p>
+            </a>
+            <a id="item" class="navbar-item is-expanded is-block has-text-centered">
+                <i class="fa fa-search"></i>
+                <p class="is-size-3">ITEM</p>
+            </a>
+            <a id="other" class="navbar-item is-expanded is-block has-text-centered">
+                <i class="fa fa-user"></i>
+                <p class="is-size-3">OTHER</p>
+            </a>
+        </div>
+    </nav>
+    <!-- ボトムナビゲーション -->
+
+    <!-- [ITEM]モーダルウィンドウ -->
+    <div id="item-mordal">
+        <section class="section">
+            <div class="container">
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <a href="compass.html"><img alt="コンパス" src="img/compass.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="server.html"><img alt="bluetooth" src="img/status.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="register.html"><img alt="pin" src="img/pin.svg"></a>
+                    </div>
+                </div>
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <p class="has-text-centered">コンパス</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">サーバー</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">地点登録</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- [ITEM]モーダルウィンドウ -->
+
+    <!-- [OTHER]モーダルウィンドウ -->
+    <div id="other-mordal">
+        <section class="section">
+            <div class="container">
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <a href="map.html"><img alt="map" src="img/map.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="settings.html"><img alt="settings" src="img/settings.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="rules.html"><img alt="rules" src="img/rules.svg"></a>
+                    </div>
+                </div>
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <p class="has-text-centered">マップ</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">設定</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">コード</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- [OTHER]モーダルウィンドウ -->
 </body>
 </html>

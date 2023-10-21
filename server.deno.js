@@ -14,7 +14,7 @@ const sql = await new Client().connect({
 /* ユーザー名を検索 */
 async function searchUser(username) {
     const response = await sql.execute(`
-        SELECT * FROM login WHERE ?? = ? LIMIT 1;
+        SELECT * FROM TJ WHERE ?? = ? LIMIT 1;
     `, [
         "username",
         username
@@ -26,7 +26,7 @@ async function searchUser(username) {
 /* ユーザーのログイン */
 async function signin(username, password) {
     const response = await sql.execute(`
-        SELECT * FROM login WHERE (
+        SELECT * FROM TJ WHERE (
             ??, ??
         ) = (
             ?, ?
@@ -44,7 +44,7 @@ async function signin(username, password) {
 /* ユーザーを追加 */
 async function signup(username, password) {
     await sql.execute(`
-        INSERT INTO login (
+        INSERT INTO TJ (
             ??, ??
         ) VALUES (
             ?, ?
@@ -56,6 +56,12 @@ async function signup(username, password) {
         password
         ]
     )
+}
+
+/* ランキング */
+async function rank() {
+    const response = await sql.execute(`SELECT username, point FROM TJ ORDER BY point DESC LIMIT 3;`)
+    return response.rows;
 }
 
 serve(async (req) => {
@@ -96,6 +102,18 @@ serve(async (req) => {
                     status: 401,
                 });
             }
+        } catch (error) {       // その他のエラー
+            console.error(error);
+            return new Response(null, {
+                status: 500,
+            });
+        }
+    } else if (req.method === "POST" && pathname === "/rank") {
+        try {
+            const ranking = await rank();
+            return new Response(JSON.stringify(ranking), {
+                status: 200,
+            });
         } catch (error) {       // その他のエラー
             console.error(error);
             return new Response(null, {
