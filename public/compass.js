@@ -26,7 +26,7 @@ function init() {
     }
 }
 
-/* 方角を取得 */
+/* 端末の方角を取得 */
 function orientation(event) {
     const alpha = event.alpha;
     let degrees;
@@ -37,8 +37,38 @@ function orientation(event) {
         degrees = alpha;
     }
 
+
+    // 35.09392818712668, 137.1554000139451
+
+    // 35.09326980912067, 137.15660045747703
+
+    // lon -> 経度(N), lat -> 緯度(E)
+    const lon1 = 137.1554000139451;
+    const lat1 = 35.09392818712668;
+    const lon2 = 137.15660045747703;
+    const lat2 = 35.09326980912067;
+    const rotate =  dirG(lon1, lat1, lon2, lat2) - degrees;
+    console.log(rotate);
     // コンパスの針を回転
-    document.getElementById('needle').style.transform = 'rotate(' + degrees + 'deg)';
+    document.getElementById('needle').style.transform = 'rotate(' + rotate + 'deg)';
+    
+}
+
+/* 目的地への方角を取得 */
+function dirG(lon1, lat1, lon2, lat2) {
+    const degToRad = Math.PI / 180;
+    const radToDeg = 180 / Math.PI;
+
+    const x1 = lon1 * degToRad;
+    const y1 = lat1 * degToRad;
+    const x2 = lon2 * degToRad;
+    const y2 = lat2 * degToRad;
+
+    const rotate = 90 - Math.atan(
+        (Math.sin(x2 - x1) / 
+            (Math.cos(y1) * Math.tan(y2) - Math.sin(y1) * Math.cos(x2 - x1))
+        )) * radToDeg;
+    return rotate;
 }
 
 /* OSを判定 */
@@ -60,7 +90,7 @@ function detectOSSimply() {
     return ret;
 }
 
-// iPhone + Safariの場合はDeviceOrientation APIの使用許可をユーザに求める
+/* APIの許可申請 */
 function permitDeviceOrientationForSafari() {
     DeviceOrientationEvent.requestPermission()
         .then(response => {
