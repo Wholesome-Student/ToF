@@ -90,7 +90,7 @@ if (!qr_list[locate_id]) {     // 初スキャン
     check_qr += 2 ** locate_id;
     localStorage.setItem("check_qr", check_qr);
 
-    let l = Number(localStorage.getItem("location") + 1);
+    let l = Number(localStorage.getItem("location")) + 1;
     localStorage.setItem("location", l);
 }
 
