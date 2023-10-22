@@ -6,7 +6,7 @@ window.addEventListener("DOMContentLoaded", init);
 
 let mode = 0;
 
-document.getElementById("change").onclick = function () {
+function adjust() {
     if (mode) {
         mode = 0;
     } else {
@@ -20,12 +20,15 @@ function init() {
 
     if (os == "iphone") {
         document.querySelector("#permit").addEventListener("click", permitDeviceOrientationForSafari);
+        document.querySelector("#permit").innerText = "許可";
         window.addEventListener(
             "deviceorientation",
             orientation,
             true
         );
     } else if (os == "android") {
+        document.querySelector("#permit").addEventListener("click", adjust);
+        document.querySelector("#permit").innerText = "補正";
         window.addEventListener(
             "deviceorientationabsolute",
             orientation,
@@ -130,10 +133,6 @@ function dirG(lat1, lon1, lat2, lon2) {
         )) * radToDeg;
     console.log("方角:", rotate);
     return rotate;
-}
-
-function toRadians(degrees) {
-    return degrees * Math.PI / 180;
 }
 
 /* 目的地への距離を取得 */
