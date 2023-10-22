@@ -1,17 +1,97 @@
+// パラメータ取得
+let params = new URL(window.location.href).searchParams;
+let locate = params.get("locate");
+
 // 現在の問題番号
-let number = 0;
-// 現在のスコア
-let score = 0;
+let number;
 // 「次の問題へ」ボタン
 const next = document.getElementById("next");
 /* クイズ */
 let questions;
+
+// locate_idを取得
+const qrtoid = await fetch("/QRtoId", {
+    method: 'POST',
+    headers: {'Content-Type': 'text/json'},
+    body: JSON.stringify({
+        locate: locate
+    })
+});
+const nn = await qrtoid?.json();
+const locate_id = nn[0]["number"];
+
+function decodeLS(ls) {
+    let ans = ls;
+    let lslist = [false, false, false]
+    if (ans >= 4) {
+        ans -= 4;
+        lslist[2] = true;
+    }
+    if (ans >= 2) {
+        ans -= 2;
+        lslist[1] = true;
+    }
+    if (ans >= 1) {
+        lslist[0] = true;
+    }
+    return lslist;
+}
+
+// デバッグ
+// 現在のスコア
+// localStorage.setItem("score", 0);
+// // 現在の問題番号
+// localStorage.setItem("number", 0);
+
+// // QRポイントをすでにスキャンしたか
+// localStorage.setItem("check_qr", 0);
+// // クイズはすでに終了したか
+// localStorage.setItem("check_quiz", 0);
+// // 今受けているクイズ
+// localStorage.setItem("check_now", -1);
+localStorage.removeItem("qr");
+
+
+
+/* 再試験防止 */
+let check_quiz = Number(localStorage.getItem("check_quiz"));
+const quiz_list = decodeLS(check_quiz);
+if (quiz_list[locate_id]) {     // 試験終了済み
+    alert("再試験はできません！");
+    window.location.replace("home.html");
+} else {                        
+    /* 中抜け防止 */
+    let check_now = Number(localStorage.getItem("check_now"));
+    if (check_now == -1) {                  // 何もクイズを受けていない
+        number = 0;
+        localStorage.setItem("number", 0);              // 問題番号を0に
+        localStorage.setItem("check_now", locate_id);   // 現在のクイズを更新
+    } else if (check_now == locate_id) {    // 途中抜け
+        number = Number(localStorage.getItem("number"));
+    } else {                                // 前のクイズが終了していない
+        alert("未完了のクイズがあります");
+        window.location.replace("home.html");
+    }
+}
+
+/* チェックポイントボーナス付与 */
+let check_qr = Number(localStorage.getItem("check_qr"));
+const qr_list = decodeLS(check_qr);
+if (!qr_list[locate_id]) {     // 初スキャン
+    // チェックポイントボーナスを追加
+    let score = Number(localStorage.getItem("score")) + 5;
+    // QR読み取り済み
+    localStorage.setItem("score", score);
+    check_qr += 2 ** locate_id;
+    localStorage.setItem("check_qr", check_qr);
+}
+
 try {
     const quiz = await fetch("/getQuiz", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            locate: "e798582707b6ca5e930168259d61e797020f89190dea9faf6064ff45c3a7860c"
+            locate: locate
         })
     })
     if (quiz.status === 200) {
@@ -74,10 +154,11 @@ function checkAnswer(q, a) {
             button.onclick = function () {
                 ;
             }
-
-            // ポイントを付与
-            score += 10;
         }
+        // ポイントを付与
+        let score = Number(localStorage.getItem("score"));
+        score += 10;
+        localStorage.setItem("score", score);
     } else {                            // 不正解
         for (let i=0;i<3;i++) {
             // 選択肢
@@ -100,17 +181,22 @@ function checkAnswer(q, a) {
         }
     }
 
+    // 正解を表示
     const ans = document.getElementById("number");
     ans.innerText = "正解: " + questions[q]["choices"][questions[q]["answer"] - 1];
+    
+    number++;
+    localStorage.setItem("number", number);
 
-
-
-    // 最終問題の場合
-    if (number == 2) {
+    // 終了処理
+    if (number >= 3) {
+        localStorage.setItem("check_now", -1);
+        check_quiz += 2 ** locate_id;
+        localStorage.setItem("check_quiz", check_quiz);
         next.innerText = "結果を表示";
         /* 結果ページへ移動 */
         next.onclick = function () {
-            window.location.replace("result.html?score=" + score);
+            window.location.replace("home.html");
         }
     }
     
@@ -130,7 +216,6 @@ next.onclick = function () {
         button.classList.add("button", "is-info", "is-size-4", "choice", "is-fullwidth");
     }
     // 次の問題へ
-    number++;
     showQuestion();
 }
 

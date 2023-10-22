@@ -30,25 +30,6 @@ function adjustVideoSize() {
     video.style.height = targetHeight + "px";
 }
 
-// localStorage.setItem("location", 0);
-
-function decodeLS(ls) {
-    let ans = ls;
-    let lslist = [false, false, false]
-    if (ans >= 4) {
-        ans -= 4;
-        lslist[2] = true;
-    }
-    if (ans >= 2) {
-        ans -= 2;
-        lslist[1] = true;
-    }
-    if (ans >= 1) {
-        lslist[0] = true;
-    }
-    return lslist;
-}
-
 window.addEventListener("resize", adjustVideoSize);
 
 const qrjson = await fetch("/qrlist", {
@@ -104,18 +85,9 @@ function tick() {
             drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
             for (let i=0;i<3;i++) {
                 if (code.data == json[i]["qr"]) {
-                    let lsv = Number(localStorage.getItem("location"));
-                    const checklist = decodeLS(lsv);
-                    console.log(checklist);
-                    if (!checklist[i]) {
-                        enable = 0;
-                        lsv += 2 ** i;
-                        localStorage.setItem("location", lsv);
-                        document.location.assign('./check.html'
-                            + '?location=' + json[i]["qr"]);
-                    } else {
-                        alert("同じ地点を2回登録することはできません!");
-                    }
+                    enable = 0;
+                    document.location.assign('./check.html'
+                        + '?location=' + code.data);
                 }
             }
         }

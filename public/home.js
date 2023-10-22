@@ -16,6 +16,7 @@ function countdown() {
 
 window.onload = function () {
     countdown();
+    document.getElementById("point").innerText = localStorage.getItem("score");
 }
 
 /* ボトムナビゲーション */

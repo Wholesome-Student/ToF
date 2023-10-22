@@ -84,6 +84,20 @@ async function getQuiz(locate) {
     return response.rows;
 }
 
+/* QRからidへ */
+async function QRtoId(locate) {
+    const response = 
+        await sql.execute(`SELECT 
+            number FROM LOCATION
+            WHERE qr = ?;
+        `, [
+            locate
+            ]
+        )
+
+    return response.rows;
+}
+
 serve(async (req) => {
     const pathname = new URL(req.url).pathname;
     if (req.method === "POST" && pathname === "/signup") {
@@ -155,6 +169,19 @@ serve(async (req) => {
             const reqJson = await req.json();
             const quiz = await getQuiz(reqJson.locate);
             return new Response(JSON.stringify(quiz), {
+                status: 200,
+            });
+        } catch (error) {       // その他のエラー
+            console.error(error);
+            return new Response(null, {
+                status: 500,
+            });
+        }
+    } else if (req.method === "POST" && pathname === "/QRtoId") {
+        try {
+            const reqJson = await req.json();
+            const number = await QRtoId(reqJson.locate);
+            return new Response(JSON.stringify(number), {
                 status: 200,
             });
         } catch (error) {       // その他のエラー
