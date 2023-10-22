@@ -7,11 +7,14 @@ window.addEventListener("DOMContentLoaded", init);
 let mode = 0;
 
 function adjust() {
-    if (mode) {
-        mode = 0;
-    } else {
-        mode = 1;
-    }
+    mode = 1;
+    document.getElementById("tutorial").innerText = "10秒間スマホを傾けて針を回してください";
+    setTimeout(reset, 10000);
+}
+
+function reset() {    
+    mode = 0;
+    document.getElementById("tutorial").innerText = "補正";
 }
 
 /* 初期化処理 */
