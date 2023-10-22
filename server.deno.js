@@ -70,10 +70,22 @@ async function qrlist() {
     return response.rows;
 }
 
+/* クイズリスト */
+async function getQuiz(locate) {
+    const response = 
+        await sql.execute(`SELECT 
+            question, choice1, choice2, choice3, answer FROM QUIZ 
+            WHERE locate = ?;
+        `, [
+            locate
+            ]
+        )
+
+    return response.rows;
+}
+
 serve(async (req) => {
     const pathname = new URL(req.url).pathname;
-
-    /* ユーザー登録 */
     if (req.method === "POST" && pathname === "/signup") {
         try {
             const reqJson = await req.json();
@@ -130,6 +142,19 @@ serve(async (req) => {
         try {
             const ranking = await qrlist();
             return new Response(JSON.stringify(ranking), {
+                status: 200,
+            });
+        } catch (error) {       // その他のエラー
+            console.error(error);
+            return new Response(null, {
+                status: 500,
+            });
+        }
+    } else if (req.method === "POST" && pathname === "/getQuiz") {
+        try {
+            const reqJson = await req.json();
+            const quiz = await getQuiz(reqJson.locate);
+            return new Response(JSON.stringify(quiz), {
                 status: 200,
             });
         } catch (error) {       // その他のエラー

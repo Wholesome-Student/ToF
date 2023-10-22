@@ -85,11 +85,16 @@ function orientation(event) {
         const lon2 = 137.1489685066174;
         const lat2 = 35.1035074091722;
         const distance = strength(lon1, lat1, lon2, lat2);
-        console.log(distance);
+        console.log("distance:", distance);
+        // 背景を変更
+        document.getElementById('radar').src = "img/radar_"+String(distance)+".png";
 
         // コンパスの針を回転
-        const rotate = degrees - dirG(lon1, lat1, lon2, lat2) + 180;
+        const rotate = degrees - dirG(lon1, lat1, lon2, lat2);
+        console.log("deg:", dirG(lon1, lat1, lon2, lat2));
         document.getElementById('needle').style.transform = 'rotate(' + rotate + 'deg)';
+
+        
     })
 }
 
@@ -112,7 +117,7 @@ function dirG(lon1, lat1, lon2, lat2) {
 
 function toRadians(degrees) {
     return degrees * Math.PI / 180;
-  }
+}
 
 /* 目的地への距離を取得 */
 function strength(lon1, lat1, lon2, lat2) {
@@ -127,8 +132,22 @@ function strength(lon1, lat1, lon2, lat2) {
   
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   
-    const distance = earthRadiusKm * c;
-    return distance;
+    const distance = earthRadiusKm * c * 1000;
+
+    console.log(distance);
+    if (distance <= 20) {
+        return 5;
+    } else if (distance <= 40) {
+        return 4;
+    } else if (distance <= 60) {
+        return 3;
+    } else if (distance <= 80) {
+        return 2;
+    } else if (distance <= 100) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 /* OSを判定 */
 function detectOSSimply() {

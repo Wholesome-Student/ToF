@@ -1,11 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3択クイズ</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.0/css/all.css">
+  <link rel="stylesheet" href="quiz.css">
+  <script type="module" src="quiz.js"></script>
 </head>
 <body>
-    
+    <section class="section">
+        <div class="container">
+            <!-- タイトル -->
+            <h1 class="title has-text-centered">3択クイズ</h1>
+            <!-- タイトル -->
+
+            <div id="question-container" class="box">
+                <!-- 問題番号 -->
+                <div class="has-text-centered">
+                    <p id="number" class="is-size-3"></p>
+                </div>
+                <!-- 問題番号 -->
+
+                <hr class="q">
+
+                <!-- 問題文 -->
+                <p id="question" class="is-size-5"></p>
+                <!-- 問題文 -->
+
+                <hr>
+
+                <!-- 選択肢 -->
+                <p id="choices" class="buttons">
+                    <button class="button is-info is-size-4 choice is-fullwidth" id="button-1">
+                        <p class="has-text-centered" id="choice-1"></p>
+                    </button>
+                    <button class="button is-info is-size-4 choice is-fullwidth" id="button-2">
+                        <p id="choice-2"></p>
+                    </button>
+                    <button class="button is-info is-size-4 choice is-fullwidth" id="button-3">
+                        <p id="choice-3"></p>
+                    </button>
+                </p>
+                <!-- 選択肢 -->
+            </div>
+
+            <!-- 次へ -->
+            <button class="button is-info is-size-4 choice is-fullwidth" id="next">
+                <p>次の問題へ</p>
+            </button>
+            <!-- 次へ -->
+        </div>
+    </section>
 </body>
 </html>
