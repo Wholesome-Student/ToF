@@ -77,8 +77,11 @@ function orientation(event) {
     if(os == "iphone") {
         degrees = 360 - event.webkitCompassHeading;
     } else {
-        // degrees = compassHeading(alpha, beta, gamma);
-        degrees = alpha;
+        if (!mode) {
+            degrees = alpha;
+        } else {
+            degrees = compassHeading(alpha, beta, gamma);
+        }
     }
 
     // lat -> N(緯度), lon -> E(経度)
@@ -105,11 +108,7 @@ function orientation(event) {
         let needle;
 
         // コンパスの針を回転
-        if (mode) {
-            needle = degrees - dirG(lat1, lon1, lat2, lon2);
-        } else {
-            needle = degrees;
-        }
+        needle = degrees - dirG(lat1, lon1, lat2, lon2);
         document.getElementById('needle').style.transform = 'rotate(' + needle + 'deg)';
     })
 }
