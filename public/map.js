@@ -6,10 +6,33 @@ let initialDistance = 0;
 let initialScale = 1;
 let scaleFactor = 1;
 
-// const updateGPS = setInterval(setDotPosition, 5000);
+class Random {
+    constructor(seed = 88675123) {
+      this.x = 123456789;
+      this.y = 362436069;
+      this.z = 521288629;
+      this.w = seed;
+    }
+    
+    // XorShift
+    next() {
+      let t;
+   
+      t = this.x ^ (this.x << 11);
+      this.x = this.y; this.y = this.z; this.z = this.w;
+      return this.w = (this.w ^ (this.w >>> 19)) ^ (t ^ (t >>> 8)); 
+    }
+    
+    // min以上max以下の乱数を生成する
+    nextInt(min, max) {
+      const rr = Math.abs(this.next());
+      return min + (rr % (max + 1 - min));
+    }
+  }
 
 const r = localStorage.getItem("random");
 const l = Number(localStorage.getItem("location"));
+const updateGPS = setInterval(setDotPosition, 5000);
 const target_id = Number(r[1]) - 1;
 let target_lat;
 let target_lon;
@@ -38,11 +61,15 @@ const mapRect = document.getElementById("map").getBoundingClientRect();
 const mapWidth = mapRect.right - mapRect.left;
 const mapHeight = mapRect.bottom - mapRect.top;
 
+const random = new Random(Number(r));
+const ranN = random.nextInt(0, 20);
+const ranE = random.nextInt(0, 20);
+
 const tagN = (target_lat - LN) / (LS - LN) * mapHeight;
 const tagE = (target_lon - LW) / (LE - LW) * mapWidth;
 
-target.style.left = tagE + mapRect.left + 'px';
-target.style.top = tagN + mapRect.top + 'px';
+target.style.left = tagE + ranN + mapRect.left + 'px';
+target.style.top = tagN + ranE + mapRect.top + 'px';
 
 
 function handleTouchStart(event) {
@@ -58,7 +85,7 @@ function handleTouchMove(event) {
         const scale = initialScale * (currentDistance / initialDistance);
         image.style.transform = 'scale(' + scale + ')';
         scaleFactor = scale;
-        // setDotPosition();
+        setDotPosition();
     }
 }
 
@@ -98,9 +125,7 @@ function setDotPosition() {
     });
 }
 
-window.onload = function() {
-    // setDotPosition();
-}
+setDotPosition();
 
 // [HOME]
 document.getElementById('home').addEventListener('touchstart', function(event) {
