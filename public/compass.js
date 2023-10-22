@@ -71,35 +71,34 @@ function orientation(event) {
         degrees = alpha;
     }
 
-    // lat -> N, lon -> E
+    // lat -> N(緯度), lon -> E(経度)
     const geolocation = navigator.geolocation;
     geolocation.getCurrentPosition((position) => {
         // 現在位置を取得
-        const lon1 = position.coords.longitude;
         const lat1 = position.coords.latitude;
-        console.log(lon1, lat1)
+        const lon1 = position.coords.longitude;
+        console.log("現在地:\n", Math.round(lat1 * 1000) / 1000, Math.round(lon1 * 1000) / 1000);
+        console.log("https://www.google.co.jp/maps/place/"+String(lat1)+"N+"+String(lon1)+"E")
 
         // 目的地を取得
-        
         // 高専
-        const lon2 = 137.1489685066174;
         const lat2 = 35.1035074091722;
-        const distance = strength(lon1, lat1, lon2, lat2);
-        console.log("distance:", distance);
+        const lon2 = 137.1489685066174;
+        console.log("目的地:\n", Math.round(lat2 * 1000) / 1000, Math.round(lon2 * 1000) / 1000);
+        console.log("https://www.google.co.jp/maps/place/"+String(lat2)+"N+"+String(lon2)+"E")
+
         // 背景を変更
+        const distance = strength(lat1, lon1, lat2, lon2);
         document.getElementById('radar').src = "img/radar_"+String(distance)+".png";
 
         // コンパスの針を回転
-        const rotate = degrees - dirG(lon1, lat1, lon2, lat2);
-        console.log("deg:", dirG(lon1, lat1, lon2, lat2));
+        const rotate = degrees - dirG(lat1, lon1, lat2, lon2);
         document.getElementById('needle').style.transform = 'rotate(' + rotate + 'deg)';
-
-        
     })
 }
 
 /* 目的地への方角を取得 */
-function dirG(lon1, lat1, lon2, lat2) {
+function dirG(lat1, lon1, lat2, lon2) {
     const degToRad = Math.PI / 180;
     const radToDeg = 180 / Math.PI;
 
@@ -112,6 +111,7 @@ function dirG(lon1, lat1, lon2, lat2) {
         (Math.sin(x2 - x1) / 
             (Math.cos(y1) * Math.tan(y2) - Math.sin(y1) * Math.cos(x2 - x1))
         )) * radToDeg;
+    console.log("方角:", rotate);
     return rotate;
 }
 
@@ -120,21 +120,22 @@ function toRadians(degrees) {
 }
 
 /* 目的地への距離を取得 */
-function strength(lon1, lat1, lon2, lat2) {
+function strength(lat1, lon1, lat2, lon2) {
+    const degToRad = Math.PI / 180;
     const earthRadiusKm = 6371;
   
-    const dLat = toRadians(lat2 - lat1);
-    const dLon = toRadians(lon2 - lon1);
+    const dLat = (lat2 - lat1) * degToRad;
+    const dLon = (lon2 - lon1) * degToRad;
   
     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-              Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+              Math.cos(lat1 * degToRad) * Math.cos(lat2 * degToRad) *
               Math.sin(dLon / 2) * Math.sin(dLon / 2);
   
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   
     const distance = earthRadiusKm * c * 1000;
 
-    console.log(distance);
+    console.log("距離:", Math.round(distance), "[m]");
     if (distance <= 20) {
         return 5;
     } else if (distance <= 40) {
