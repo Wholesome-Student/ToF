@@ -4,6 +4,16 @@ let os;
 // DOM構築完了イベントハンドラ登録
 window.addEventListener("DOMContentLoaded", init);
 
+let mode = 0;
+
+document.getElementById("change").onclick = function () {
+    if (mode) {
+        mode = 0;
+    } else {
+        mode = 1;
+    }
+}
+
 /* 初期化処理 */
 function init() {
     os = detectOSSimply();  // os判定
@@ -27,25 +37,25 @@ function init() {
 }
 
 function compassHeading(alpha, beta, gamma) {
-    var degtorad = Math.PI / 180; // Degree-to-Radian conversion
+    const degtorad = Math.PI / 180; // Degree-to-Radian conversion
 
-    var _x = beta ? beta * degtorad : 0; // beta value
-    var _y = gamma ? gamma * degtorad : 0; // gamma value
-    var _z = alpha ? alpha * degtorad : 0; // alpha value
+    const _x = beta ? beta * degtorad : 0; // beta value
+    const _y = gamma ? gamma * degtorad : 0; // gamma value
+    const _z = alpha ? alpha * degtorad : 0; // alpha value
 
-    var cX = Math.cos(_x);
-    var cY = Math.cos(_y);
-    var cZ = Math.cos(_z);
-    var sX = Math.sin(_x);
-    var sY = Math.sin(_y);
-    var sZ = Math.sin(_z);
+    const cX = Math.cos(_x);
+    const cY = Math.cos(_y);
+    const cZ = Math.cos(_z);
+    const sX = Math.sin(_x);
+    const sY = Math.sin(_y);
+    const sZ = Math.sin(_z);
 
     // Calculate Vx and Vy components
-    var Vx = -cZ * sY - sZ * sX * cY;
-    var Vy = -sZ * sY + cZ * sX * cY;
+    const Vx = -cZ * sY - sZ * sX * cY;
+    const Vy = -sZ * sY + cZ * sX * cY;
 
     // Calculate compass heading
-    var compassHeading = Math.atan(Vx / Vy);
+    let compassHeading = Math.atan(Vx / Vy);
 
     // Convert compass heading to use whole unit circle
     if (Vy < 0) {
@@ -91,9 +101,16 @@ function orientation(event) {
         const distance = strength(lat1, lon1, lat2, lon2);
         document.getElementById('radar').src = "img/radar_"+String(distance)+".png";
 
+
+        let needle;
+
         // コンパスの針を回転
-        const rotate = degrees - dirG(lat1, lon1, lat2, lon2);
-        document.getElementById('needle').style.transform = 'rotate(' + rotate + 'deg)';
+        if (mode) {
+            needle = degrees - dirG(lat1, lon1, lat2, lon2);
+        } else {
+            needle = degrees;
+        }
+        document.getElementById('needle').style.transform = 'rotate(' + needle + 'deg)';
     })
 }
 
