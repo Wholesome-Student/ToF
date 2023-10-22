@@ -86,8 +86,9 @@ function tick() {
             for (let i=0;i<3;i++) {
                 if (code.data == json[i]["qr"]) {
                     enable = 0;
-                    document.location.assign('./check.html'
-                        + '?location=' + code.data);
+
+                    document.location.assign('./quiz.html'
+                        + '?locate=' + code.data);
                 }
             }
         }

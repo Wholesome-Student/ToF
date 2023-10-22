@@ -34,10 +34,17 @@ document.getElementById("signup").onclick = async(e) => {
             });
             if (res.status === 200) {
                 localStorage.setItem("username", username);
-                localStorage.setItem("location", 0);
+                // デバッグ
+                // 現在のスコア
                 localStorage.setItem("score", 0);
-                localStorage.setItem("quiz", 0);
+                // 現在の問題番号
                 localStorage.setItem("number", 0);
+                // QRポイントをすでにスキャンしたか
+                localStorage.setItem("check_qr", 0);
+                // クイズはすでに終了したか
+                localStorage.setItem("check_quiz", 0);
+                // 今受けているクイズ
+                localStorage.setItem("check_now", -1);
                 window.location.assign("./home.html");
             } else if (res.status === 409) {
                 document.getElementById("log").textContent = "ユーザー名がすでに登録されています";

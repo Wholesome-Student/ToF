@@ -10,15 +10,20 @@ const next = document.getElementById("next");
 let questions;
 
 // locate_idを取得
-const qrtoid = await fetch("/QRtoId", {
-    method: 'POST',
-    headers: {'Content-Type': 'text/json'},
-    body: JSON.stringify({
-        locate: locate
-    })
-});
-const nn = await qrtoid?.json();
-const locate_id = nn[0]["number"];
+let locate_id;
+try {
+    const qrtoid = await fetch("/QRtoId", {
+        method: 'POST',
+        headers: {'Content-Type': 'text/json'},
+        body: JSON.stringify({
+            locate: locate
+        })
+    });
+    const nn = await qrtoid?.json();
+    locate_id = nn[0]["number"];
+} catch (e) {
+    console.log(e)
+}
 
 function decodeLS(ls) {
     let ans = ls;
@@ -193,7 +198,7 @@ function checkAnswer(q, a) {
         localStorage.setItem("check_now", -1);
         check_quiz += 2 ** locate_id;
         localStorage.setItem("check_quiz", check_quiz);
-        next.innerText = "結果を表示";
+        next.innerText = "ホームに戻る";
         /* 結果ページへ移動 */
         next.onclick = function () {
             window.location.replace("home.html");

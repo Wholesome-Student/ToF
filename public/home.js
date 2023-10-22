@@ -2,16 +2,21 @@
 let pressStartTime;
 
 /* タイマー */
-const deadline = new Date('2023-10-22T00:00:00');
+const deadline = new Date('2023-10-23T16:00:00');
 const countdownInterval = setInterval(countdown, 1000);
 
 function countdown() {
     const now = new Date();
     const remain = Math.floor((deadline - now) / 1000);
-    const hours = Math.floor(remain / 3600).toString().padStart(2, '0');
-    const minutes = Math.floor((remain - 3600 * hours) / 60).toString().padStart(2, '0');
-    const seconds = Math.floor(remain % 60).toString().padStart(2, '0');
-    document.getElementById("timer").textContent = [hours, minutes, seconds].join(':');
+    if (remain > 0) {
+        const hours = Math.floor(remain / 3600).toString().padStart(2, '0');
+        const minutes = Math.floor((remain - 3600 * hours) / 60).toString().padStart(2, '0');
+        const seconds = Math.floor(remain % 60).toString().padStart(2, '0');
+        document.getElementById("timer").textContent = [hours, minutes, seconds].join(':');
+    } else {
+        document.getElementById("timer").textContent = "終了しました";
+    }
+    
 }
 
 window.onload = function () {

@@ -34,17 +34,20 @@ document.getElementById("signin").onclick = async (e) => {
             })
             if(res.status === 200) {
                 localStorage.setItem("username", username)
-                if (!localStorage.hasOwnProperty("location")) {
-                    localStorage.setItem("location", 0);
-                }
                 if (!localStorage.hasOwnProperty("score")) {
                     localStorage.setItem("score", 0);
                 }
-                if (!localStorage.hasOwnProperty("quiz")) {
-                    localStorage.setItem("quiz", 0);
-                }
                 if (!localStorage.hasOwnProperty("number")) {
                     localStorage.setItem("number", 0);
+                }
+                if (!localStorage.hasOwnProperty("check_qr")) {
+                    localStorage.setItem("check_qr", 0);
+                }
+                if (!localStorage.hasOwnProperty("check_quiz")) {
+                    localStorage.setItem("check_quiz", 0);
+                }
+                if (!localStorage.hasOwnProperty("check_now")) {
+                    localStorage.setItem("check_now", -1);
                 }
                 window.location.assign("./home.html")
             } else if(res.status === 401) {
