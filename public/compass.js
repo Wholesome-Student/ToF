@@ -96,16 +96,16 @@ function orientation(event) {
         // 現在位置を取得
         const lat1 = position.coords.latitude;
         const lon1 = position.coords.longitude;
-        // console.log("現在地:\n", Math.round(lat1 * 1000) / 1000, Math.round(lon1 * 1000) / 1000);
-        // console.log("https://www.google.co.jp/maps/place/"+String(lat1)+"N+"+String(lon1)+"E")
+        console.log("現在地:\n", Math.round(lat1 * 1000) / 1000, Math.round(lon1 * 1000) / 1000);
+        console.log("https://www.google.co.jp/maps/place/"+String(lat1)+"N+"+String(lon1)+"E")
 
         // 目的地を取得
         // 高専
         
         const lat2 = 35.078201201661;
         const lon2 = 137.14594027778583;
-        // console.log("目的地:\n", Math.round(lat2 * 1000) / 1000, Math.round(lon2 * 1000) / 1000);
-        // console.log("https://www.google.co.jp/maps/place/"+String(lat2)+"N+"+String(lon2)+"E")
+        console.log("目的地:\n", Math.round(lat2 * 1000) / 1000, Math.round(lon2 * 1000) / 1000);
+        console.log("https://www.google.co.jp/maps/place/"+String(lat2)+"N+"+String(lon2)+"E")
 
         // 背景を変更
         const distance = strength(lat1, lon1, lat2, lon2);
@@ -131,7 +131,7 @@ function dirG(lat1, lon1, lat2, lon2) {
     const x2 = lon2 * degToRad;
     const y2 = lat2 * degToRad;
 
-    const rotate = 90 - Math.atan(
+    const rotate = - Math.atan(
         (Math.sin(x2 - x1) / 
             (Math.cos(y1) * Math.tan(y2) - Math.sin(y1) * Math.cos(x2 - x1))
         )) * radToDeg;
