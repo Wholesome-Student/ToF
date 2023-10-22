@@ -71,25 +71,25 @@ function orientation(event) {
         degrees = alpha;
     }
 
-
-    // 35.09392818712668, 137.1554000139451
-
-    // 35.09326980912067, 137.15660045747703
-
     // lat -> N, lon -> E
     const geolocation = navigator.geolocation;
     geolocation.getCurrentPosition((position) => {
+        // 現在位置を取得
         const lon1 = position.coords.longitude;
         const lat1 = position.coords.latitude;
         console.log(lon1, lat1)
-        const lon2 = 35.075436;
-        const lat2 = 137.143422;
-        console.log(dirG(lon1, lat1, lon2, lat2));
-        const rotate = degrees - dirG(lon1, lat1, lon2, lat2) + 180;
-        console.log(rotate);
+
+        // 目的地を取得
+        
+        // 高専
+        const lon2 = 137.1489685066174;
+        const lat2 = 35.1035074091722;
+        const distance = strength(lon1, lat1, lon2, lat2);
+        console.log(distance);
+
         // コンパスの針を回転
+        const rotate = degrees - dirG(lon1, lat1, lon2, lat2) + 180;
         document.getElementById('needle').style.transform = 'rotate(' + rotate + 'deg)';
-        // document.getElementById('needle').style.transform = 'rotate(' + degrees + 'deg)';
     })
 }
 
@@ -110,6 +110,26 @@ function dirG(lon1, lat1, lon2, lat2) {
     return rotate;
 }
 
+function toRadians(degrees) {
+    return degrees * Math.PI / 180;
+  }
+
+/* 目的地への距離を取得 */
+function strength(lon1, lat1, lon2, lat2) {
+    const earthRadiusKm = 6371;
+  
+    const dLat = toRadians(lat2 - lat1);
+    const dLon = toRadians(lon2 - lon1);
+  
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+              Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  
+    const distance = earthRadiusKm * c;
+    return distance;
+}
 /* OSを判定 */
 function detectOSSimply() {
     let ret;
