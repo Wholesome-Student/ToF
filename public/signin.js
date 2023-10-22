@@ -49,6 +49,14 @@ document.getElementById("signin").onclick = async (e) => {
                 if (!localStorage.hasOwnProperty("check_now")) {
                     localStorage.setItem("check_now", -1);
                 }
+                if (!localStorage.hasOwnProperty("random")) {
+                    const r = Math.floor(Math.random() * (6 + 1));
+                    const l = [1234, 1324, 2134, 2314, 3124, 3214];
+                    localStorage.setItem("random", l[r]);
+                }
+                if (!localStorage.hasOwnProperty("location")) {
+                    localStorage.setItem("location", 0);
+                }
                 window.location.assign("./home.html")
             } else if(res.status === 401) {
                 document.getElementById("log").textContent = "サインインに失敗しました"

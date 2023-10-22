@@ -2,7 +2,7 @@
 let pressStartTime;
 
 /* タイマー */
-const deadline = new Date('2023-10-23T16:00:00');
+const deadline = new Date('2023-10-23T16:10:00');
 const countdownInterval = setInterval(countdown, 1000);
 
 function countdown() {
@@ -22,6 +22,11 @@ function countdown() {
 window.onload = function () {
     countdown();
     document.getElementById("point").innerText = localStorage.getItem("score");
+}
+
+document.getElementById("hint").onclick = async (e) => {
+    e.preventDefault();
+    window.location.assign("map.html")
 }
 
 /* ボトムナビゲーション */

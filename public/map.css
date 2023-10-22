@@ -17,11 +17,21 @@ body, html {
     max-height: 100%;
     object-fit: contain;
 }
+
 .dot {
     position: absolute;
     width: 10px;
     height: 10px;
     background-color: red;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.target {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: #3CB371;
     border-radius: 50%;
     transform: translate(-50%, -50%);
 }

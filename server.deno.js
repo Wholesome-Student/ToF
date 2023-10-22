@@ -98,6 +98,19 @@ async function QRtoId(locate) {
     return response.rows;
 }
 
+async function IdtoLL(id) {
+    const response = 
+        await sql.execute(`SELECT 
+        lat, lon FROM LOCATION
+        WHERE number = ?;
+        `, [
+            id
+            ]
+        )
+
+    return response.rows;
+}
+
 serve(async (req) => {
     const pathname = new URL(req.url).pathname;
     if (req.method === "POST" && pathname === "/signup") {
@@ -182,6 +195,19 @@ serve(async (req) => {
             const reqJson = await req.json();
             const number = await QRtoId(reqJson.locate);
             return new Response(JSON.stringify(number), {
+                status: 200,
+            });
+        } catch (error) {       // その他のエラー
+            console.error(error);
+            return new Response(null, {
+                status: 500,
+            });
+        }
+    } else if (req.method === "POST" && pathname === "/IdtoLL") {
+        try {
+            const reqJson = await req.json();
+            const LL = await IdtoLL(reqJson.id);
+            return new Response(JSON.stringify(LL), {
                 status: 200,
             });
         } catch (error) {       // その他のエラー

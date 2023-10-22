@@ -45,6 +45,14 @@ document.getElementById("signup").onclick = async(e) => {
                 localStorage.setItem("check_quiz", 0);
                 // 今受けているクイズ
                 localStorage.setItem("check_now", -1);
+                
+                // 回る順序
+                const r = Math.floor(Math.random() * (6 + 1));
+                const l = [1234, 1324, 2134, 2314, 3124, 3214];
+                localStorage.setItem("random", l[r]);
+                // 回った場所の数
+                localStorage.setItem("location", 0);
+                
                 window.location.assign("./home.html");
             } else if (res.status === 409) {
                 document.getElementById("log").textContent = "ユーザー名がすでに登録されています";
