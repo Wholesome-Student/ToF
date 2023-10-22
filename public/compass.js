@@ -102,8 +102,8 @@ function orientation(event) {
         // 目的地を取得
         // 高専
         
-        const lat2 = 35.078201201661;
-        const lon2 = 137.14594027778583;
+        const lat2 = 35.08448805225017;
+        const lon2 = 137.17088711051653;
         console.log("目的地:\n", Math.round(lat2 * 1000) / 1000, Math.round(lon2 * 1000) / 1000);
         console.log("https://www.google.co.jp/maps/place/"+String(lat2)+"N+"+String(lon2)+"E")
 
