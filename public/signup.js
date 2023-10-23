@@ -47,15 +47,15 @@ document.getElementById("signup").onclick = async(e) => {
                 localStorage.setItem("check_now", -1);
                 
                 // 回る順序
-                const r = Math.floor(Math.random() * (6 + 1));
+                const r = Math.floor(Math.random() * 6);
                 const l = [1234, 1324, 2134, 2314, 3124, 3214];
                 localStorage.setItem("random", l[r]);
                 // 回った場所の数
                 localStorage.setItem("location", 0);
                 
-                window.location.assign("./home.html");
+                setTimeout(10, window.location.assign("./home.html"));
             } else if (res.status === 409) {
-                document.getElementById("log").textContent = "ユーザー名がすでに登録されています";
+                document.getEconsole.log(r);lementById("log").textContent = "ユーザー名がすでに登録されています";
             } else {
                 document.getElementById("log").textContent = "サーバー側の不具合が発生しました";
             }

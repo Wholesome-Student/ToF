@@ -33,7 +33,7 @@ class Random {
 const r = localStorage.getItem("random");
 const l = Number(localStorage.getItem("location"));
 const updateGPS = setInterval(setDotPosition, 5000);
-const target_id = Number(r[1]) - 1;
+const target_id = Number(r[l]) - 1;
 let target_lat;
 let target_lon;
 try {
@@ -62,8 +62,8 @@ const mapWidth = mapRect.right - mapRect.left;
 const mapHeight = mapRect.bottom - mapRect.top;
 
 const random = new Random(Number(r));
-const ranN = random.nextInt(0, 20);
-const ranE = random.nextInt(0, 20);
+const ranN = random.nextInt(0, 10);
+const ranE = random.nextInt(0, 10);
 
 const tagN = (target_lat - LN) / (LS - LN) * mapHeight;
 const tagE = (target_lon - LW) / (LE - LW) * mapWidth;

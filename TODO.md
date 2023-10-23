@@ -7,3 +7,5 @@
 - not (Chrome or Safari) 勢に警告
 - mordalを外側タップで閉じる
 - アラーム
+- 地図 拡大
+- コンパス 次の場所

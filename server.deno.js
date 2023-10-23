@@ -111,6 +111,20 @@ async function IdtoLL(id) {
     return response.rows;
 }
 
+async function addRank(username, score) {
+    await sql.execute(`
+        UPDATE TJ 
+        SET ?? = ?
+        WHERE ?? = ?
+    `, [
+        "point",
+        score,
+        "username",
+        username
+        ]
+    )
+}
+
 serve(async (req) => {
     const pathname = new URL(req.url).pathname;
     if (req.method === "POST" && pathname === "/signup") {
@@ -208,6 +222,19 @@ serve(async (req) => {
             const reqJson = await req.json();
             const LL = await IdtoLL(reqJson.id);
             return new Response(JSON.stringify(LL), {
+                status: 200,
+            });
+        } catch (error) {       // その他のエラー
+            console.error(error);
+            return new Response(null, {
+                status: 500,
+            });
+        }
+    } else if (req.method === "POST" && pathname === "/addRank") {
+        try {
+            const reqJson = await req.json();
+            await addRank(reqJson.username, reqJson.score);
+            return new Response(null, {
                 status: 200,
             });
         } catch (error) {       // その他のエラー

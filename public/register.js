@@ -5,6 +5,9 @@ const loadingMessage = document.getElementById("loadingMessage");
 
 let enable = 1;
 
+const r = localStorage.getItem("random");
+const l = Number(localStorage.getItem("location"));
+
 // ウィンドウのサイズに応じてビデオ要素のサイズを調整する
 function adjustVideoSize() {
     const windowWidth = window.innerWidth;
@@ -85,10 +88,14 @@ function tick() {
             drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
             for (let i=0;i<3;i++) {
                 if (code.data == json[i]["qr"]) {
-                    enable = 0;
-
-                    document.location.assign('./quiz.html'
-                        + '?locate=' + code.data);
+                    if (r[l] == i + 1) {
+                        enable = 0;
+                        document.location.assign('./quiz.html'
+                            + '?locate=' + code.data);
+                    } else {
+                        alert("違うQRが読み込まれました");
+                    }
+                    
                 }
             }
         }

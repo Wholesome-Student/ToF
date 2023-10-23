@@ -14,7 +14,7 @@ let locate_id;
 try {
     const qrtoid = await fetch("/QRtoId", {
         method: 'POST',
-        headers: {'Content-Type': 'text/json'},
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             locate: locate
         })
@@ -144,7 +144,7 @@ function showQuestion() {
 }
 
 /* 回答を確認 */
-function checkAnswer(q, a) {
+async function checkAnswer(q, a) {
     if (questions[q]["answer"] == a) {  // 正解
         for (let i=0;i<3;i++) {
             // 選択肢
@@ -202,6 +202,14 @@ function checkAnswer(q, a) {
         check_quiz += 2 ** locate_id;
         localStorage.setItem("check_quiz", check_quiz);
         next.innerText = "ホームに戻る";
+        await fetch("/addRank", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                username: localStorage.getItem("username"),
+                score: localStorage.getItem("score")
+            })
+        });
         /* 結果ページへ移動 */
         next.onclick = function () {
             window.location.replace("home.html");
