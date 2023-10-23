@@ -6,6 +6,26 @@ window.addEventListener("DOMContentLoaded", init);
 
 let mode = 0;
 
+const r = localStorage.getItem("random");
+const l = Number(localStorage.getItem("location"));
+const target_id = Number(r[l]) - 1;
+let target_lat;
+let target_lon;
+try {
+    const idtoll = await fetch("/IdtoLL", {
+        method: 'POST',
+        headers: {'Content-Type': 'text/json'},
+        body: JSON.stringify({
+            id: target_id
+        })
+    });
+    const nn = await idtoll?.json();
+    target_lat = nn[0]["lat"];
+    target_lon = nn[0]["lon"];
+} catch (e) {
+    console.log(e);
+}
+
 function adjust() {
     mode = 1;
     document.getElementById("tutorial").innerText = "10秒間スマホを傾けて針を回してください";
@@ -102,8 +122,8 @@ function orientation(event) {
         // 目的地を取得
         // 高専
         
-        const lat2 = 35.08448805225017;
-        const lon2 = 137.17088711051653;
+        const lat2 = target_lat;
+        const lon2 = target_lon;
         console.log("目的地:\n", Math.round(lat2 * 1000) / 1000, Math.round(lon2 * 1000) / 1000);
         console.log("https://www.google.co.jp/maps/place/"+String(lat2)+"N+"+String(lon2)+"E")
 
