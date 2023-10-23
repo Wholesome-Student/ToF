@@ -45,6 +45,8 @@ document.getElementById("signin").onclick = async (e) => {
                 localStorage.setItem("check_quiz", 0);
                 // 今受けているクイズ
                 localStorage.setItem("check_now", -1);
+                // フルスクリーン
+                localStorage.setItem("fullscreen", 0);
                 
                 // 回る順序
                 const r = Math.floor(Math.random() * 6);

@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="setting.css">
     <title>Settings</title>
+    <script type="module" src="setting.js"></script>
 </head>
 <body>
-    settings
+
+    <button id="fullscreen" class="button">全画面</button>
+
+    <!-- ボトムナビゲーション -->
     <nav class="navbar is-link is-fixed-bottom" role="navigation">
         <div class="navbar-brand">
             <a id="home" class="navbar-item is-expanded is-block has-text-centered">
@@ -19,22 +23,99 @@
                 <i class="fa fa-search"></i>
                 <p class="is-size-3">ITEM</p>
             </a>
-            <a id="map" class="navbar-item is-expanded is-block has-text-centered">
+            <a id="other" class="navbar-item is-expanded is-block has-text-centered">
                 <i class="fa fa-user"></i>
-                <p class="is-size-3">MAP</p>
+                <p class="is-size-3">OTHER</p>
             </a>
         </div>
     </nav>
+    <!-- ボトムナビゲーション -->
+
+    <!-- [ITEM]モーダルウィンドウ -->
+    <div id="item-mordal">
+        <section class="section">
+            <div class="container">
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <a href="compass.html"><img alt="コンパス" src="img/compass.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="server.html"><img alt="bluetooth" src="img/status.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="register.html"><img alt="pin" src="img/pin.svg"></a>
+                    </div>
+                </div>
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <p class="has-text-centered">コンパス</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">サーバー</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">地点登録</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- [ITEM]モーダルウィンドウ -->
+
+    <!-- [OTHER]モーダルウィンドウ -->
+    <div id="other-mordal">
+        <section class="section">
+            <div class="container">
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <a href="map.html"><img alt="map" src="img/map.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="settings.html"><img alt="settings" src="img/settings.svg"></a>
+                    </div>
+                    <div class="column ">
+                        <a href="rules.html"><img alt="rules" src="img/rules.svg"></a>
+                    </div>
+                </div>
+                <div class="columns is-mobile is-centered is-variable is-7">
+                    <div class="column ">
+                        <p class="has-text-centered">マップ</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">設定</p>
+                    </div>
+                    <div class="column ">
+                        <p class="has-text-centered">コード</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- [OTHER]モーダルウィンドウ -->
 </body>
 <script>
-    document.getElementById("home").onclick = async (e) => {
+    // [HOME]
+    document.getElementById('home').onclick = async (e) => {
         e.preventDefault();
         document.location.assign('./home.html');
     }
 
-    document.getElementById("map").onclick = async (e) => {
+    // [ITEM]
+    document.getElementById("item").onclick = async (e) => {
         e.preventDefault();
-        document.location.assign('map.html');
+        document.getElementById('item-mordal').classList.toggle('open');
+        if (document.getElementById('other-mordal').classList.contains('open')) {
+            document.getElementById('other-mordal').classList.toggle('open');
+        }
+    }
+
+    // [OTHER]
+    document.getElementById("other").onclick = async (e) => {
+        e.preventDefault();
+        document.getElementById('other-mordal').classList.toggle('open');
+        if (document.getElementById('item-mordal').classList.contains('open')) {
+            document.getElementById('item-mordal').classList.toggle('open');
+        }
     }
 </script>
 </html>

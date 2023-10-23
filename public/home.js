@@ -31,22 +31,10 @@ document.getElementById("hint").onclick = async (e) => {
 
 /* ボトムナビゲーション */
 // [HOME]
-document.getElementById('home').addEventListener('touchstart', function(event) {
-    pressStartTime = new Date().getTime();
-});
-
-document.getElementById('home').addEventListener('touchend', function(event) {
-    const pressEndTime = new Date().getTime();
-    const pressDuration = pressEndTime - pressStartTime;
-  
-    if (pressDuration >= 750) {
-        // 長押しの場合の処理（test.htmlにジャンプ）
-        fullscreen();
-    } else {
-        // 短押しの場合の処理（index.htmlにジャンプ）
-        document.location.assign('./home.html');
-    }
-});
+document.getElementById("home").onclick = async (e) => {
+    e.preventDefault();
+    window.location.assign("home.html")
+}
 
 // [ITEM]
 document.getElementById("item").onclick = async (e) => {
@@ -69,34 +57,3 @@ document.getElementById("other").onclick = async (e) => {
 /*
  * 機能実装
 */
-
-// 全画面化
-function fullscreen() {
-    if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement) {
-        if (document.cancelFullScreen) {
-            document.cancelFullScreen();
-        } else {
-            if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else {
-                if (document.webkitCancelFullScreen) {
-                    document.webkitCancelFullScreen();
-                }
-            }
-        }
-    } else {
-        const _element = document.documentElement;
-        if (_element.requestFullscreen) {
-            _element.requestFullscreen();
-        } else {
-            if (_element.mozRequestFullScreen) {
-                _element.mozRequestFullScreen();
-            } else {
-                if (_element.webkitRequestFullscreen) {
-                    _element.webkitRequestFullscreen();
-                }
-            }
-        }
-    }
-};
-
