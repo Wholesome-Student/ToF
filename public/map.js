@@ -73,8 +73,8 @@ window.onload = async function() {
     const tagN = (target_lat - LN) / (LS - LN) * mapHeight;
     const tagE = (target_lon - LW) / (LE - LW) * mapWidth;
 
-    target.style.left = tagE + ranN + mapRect.left + 'px';
-    target.style.top = tagN + ranE + mapRect.top + 'px';
+    target.style.left = tagE + mapRect.left + 'px';
+    target.style.top = tagN + mapRect.top + 'px';
 
     setDotPosition();
 }
