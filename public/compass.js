@@ -135,8 +135,8 @@ function orientation(event) {
         let needle;
 
         // コンパスの針を回転
-        // needle = degrees - dirG(lat1, lon1, lat2, lon2);
-        needle = degrees;
+        needle = degrees - dirG(lat1, lon1, lat2, lon2);
+        // needle = degrees;
         document.getElementById('needle').style.transform = 'rotate(' + needle + 'deg)';
     })
 }
