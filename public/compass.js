@@ -151,7 +151,7 @@ function dirG(lat1, lon1, lat2, lon2) {
     const x2 = lon2 * degToRad;
     const y2 = lat2 * degToRad;
 
-    const rotate = - Math.atan(
+    const rotate = 90 - Math.atan(
         (Math.sin(x2 - x1) / 
             (Math.cos(y1) * Math.tan(y2) - Math.sin(y1) * Math.cos(x2 - x1))
         )) * radToDeg;
