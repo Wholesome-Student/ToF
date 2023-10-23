@@ -152,7 +152,6 @@ serve(async (req) => {
             const reqJson = await req.json();
             const loginExists = await signin(reqJson.username, reqJson.password);
             if (loginExists) {  // サインイン成功
-                signup(reqJson.username, reqJson.password);
                 return new Response(null, {
                     status: 200,
                 });
