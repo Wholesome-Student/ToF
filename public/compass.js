@@ -134,12 +134,26 @@ function orientation(event) {
 
         let needle;
 
+        console.log(getBearing(lat1, lon1, lat2, lon2))
+
         // コンパスの針を回転
-        needle = degrees - dirG(lat1, lon1, lat2, lon2) - 180;
+        needle = degrees - getBearing(lat1, lon1, lat2, lon2);
         // needle = degrees;
         document.getElementById('needle').style.transform = 'rotate(' + needle + 'deg)';
     })
 }
+
+function getBearing(lat1, lon1, lat2, lon2) {
+    const dLon = lon2 - lon1;
+    const y = Math.sin(dLon) * Math.cos(lat2);
+    const x =
+      Math.cos(lat1) * Math.sin(lat2) -
+      Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+    let bearing = Math.atan2(y, x);
+    bearing = (bearing * 180) / Math.PI;
+    bearing = (bearing + 360) % 360;
+    return bearing;
+  }
 
 /* 目的地への方角を取得 */
 function dirG(lat1, lon1, lat2, lon2) {
