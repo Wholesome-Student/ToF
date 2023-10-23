@@ -30,46 +30,55 @@ class Random {
     }
   }
 
-const r = localStorage.getItem("random");
-const l = Number(localStorage.getItem("location"));
-const updateGPS = setInterval(setDotPosition, 5000);
-const target_id = Number(r[l]) - 1;
-let target_lat;
-let target_lon;
-try {
-    const idtoll = await fetch("/IdtoLL", {
-        method: 'POST',
-        headers: {'Content-Type': 'text/json'},
-        body: JSON.stringify({
-            id: target_id
-        })
-    });
-    const nn = await idtoll?.json();
-    target_lat = nn[0]["lat"];
-    target_lon = nn[0]["lon"];
-} catch (e) {
-    console.log(e);
+/* 地図の範囲(緯度経度) */
+const LN = 35.10448;
+const LS = 35.10186;
+const LW = 137.14690;
+const LE = 137.15115;
+
+let mapRect;
+let mapWidth;
+let mapHeight;
+
+window.onload = async function() {
+    const r = localStorage.getItem("random");
+    const l = Number(localStorage.getItem("location"));
+    const updateGPS = setInterval(setDotPosition, 5000);
+    const target_id = Number(r[l]) - 1;
+    let target_lat;
+    let target_lon;
+    try {
+        const idtoll = await fetch("/IdtoLL", {
+            method: 'POST',
+            headers: {'Content-Type': 'text/json'},
+            body: JSON.stringify({
+                id: target_id
+            })
+        });
+        const nn = await idtoll?.json();
+        target_lat = nn[0]["lat"];
+        target_lon = nn[0]["lon"];
+    } catch (e) {
+        console.log(e);
+    }
+
+    mapRect = document.getElementById("map").getBoundingClientRect();
+    mapWidth = mapRect.right - mapRect.left;
+    mapHeight = mapRect.bottom - mapRect.top;
+
+    const random = new Random(Number(r));
+    const ranN = random.nextInt(0, 10);
+    const ranE = random.nextInt(0, 10);
+
+    const tagN = (target_lat - LN) / (LS - LN) * mapHeight;
+    const tagE = (target_lon - LW) / (LE - LW) * mapWidth;
+
+    target.style.left = tagE + ranN + mapRect.left + 'px';
+    target.style.top = tagN + ranE + mapRect.top + 'px';
+
+    setDotPosition();
 }
 
-/* 地図の範囲(緯度経度) */
-const LN = 35.1044600;
-const LS = 35.1025900;
-const LW = 137.1466500;
-const LE = 137.1496500;
-
-const mapRect = document.getElementById("map").getBoundingClientRect();
-const mapWidth = mapRect.right - mapRect.left;
-const mapHeight = mapRect.bottom - mapRect.top;
-
-const random = new Random(Number(r));
-const ranN = random.nextInt(0, 10);
-const ranE = random.nextInt(0, 10);
-
-const tagN = (target_lat - LN) / (LS - LN) * mapHeight;
-const tagE = (target_lon - LW) / (LE - LW) * mapWidth;
-
-target.style.left = tagE + ranN + mapRect.left + 'px';
-target.style.top = tagN + ranE + mapRect.top + 'px';
 
 
 function handleTouchStart(event) {
@@ -85,7 +94,6 @@ function handleTouchMove(event) {
         const scale = initialScale * (currentDistance / initialDistance);
         image.style.transform = 'scale(' + scale + ')';
         scaleFactor = scale;
-        setDotPosition();
     }
 }
 
@@ -110,22 +118,14 @@ function setDotPosition() {
     geolocation.getCurrentPosition((position) => {
         const nowN = position.coords.latitude;
         const nowE = position.coords.longitude;
-        console.log(nowN, nowE);
-
-        const mapRect = document.getElementById("map").getBoundingClientRect();
-        const mapWidth = mapRect.right - mapRect.left;
-        const mapHeight = mapRect.bottom - mapRect.top;
 
         const mapN = (nowN - LN) / (LS - LN) * mapHeight;
         const mapE = (nowE - LW) / (LE - LW) * mapWidth;
 
-        console.log(mapN, mapE);
         dot.style.left = mapE + mapRect.left + 'px';
         dot.style.top = mapN + mapRect.top + 'px';
     });
 }
-
-setDotPosition();
 
 // [HOME]
 document.getElementById('home').addEventListener('touchstart', function(event) {
