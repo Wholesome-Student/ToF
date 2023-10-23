@@ -119,6 +119,8 @@ function setDotPosition() {
         const nowN = position.coords.latitude;
         const nowE = position.coords.longitude;
 
+        console.log(nowN, nowE)
+
         const mapN = (nowN - LN) / (LS - LN) * mapHeight;
         const mapE = (nowE - LW) / (LE - LW) * mapWidth;
 
