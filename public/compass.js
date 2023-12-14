@@ -28,13 +28,13 @@ try {
 
 function adjust() {
     mode = 1;
-    document.getElementById("tutorial").innerText = "10秒間スマホを傾けて針を回してください";
+    document.getElementById("tutorial").innerText = "Tilt the phone for 10 seconds to turn the needle";
     setTimeout(reset, 10000);
 }
 
 function reset() {    
     mode = 0;
-    document.getElementById("tutorial").innerText = "補正完了";
+    document.getElementById("tutorial").innerText = "Correction complete";
 }
 
 /* 初期化処理 */
@@ -43,7 +43,7 @@ function init() {
 
     if (os == "iphone") {
         document.querySelector("#permit").addEventListener("click", permitDeviceOrientationForSafari);
-        document.querySelector("#permit").innerText = "許可";
+        document.querySelector("#permit").innerText = "Permit";
         window.addEventListener(
             "deviceorientation",
             orientation,
@@ -51,14 +51,14 @@ function init() {
         );
     } else if (os == "android") {
         document.querySelector("#permit").addEventListener("click", adjust);
-        document.querySelector("#permit").innerText = "補正";
+        document.querySelector("#permit").innerText = "correction";
         window.addEventListener(
             "deviceorientationabsolute",
             orientation,
             true
         );
     } else {
-        window.alert("このデバイスには対応していません");
+        window.alert("Not compatible with this device");
     }
 }
 
