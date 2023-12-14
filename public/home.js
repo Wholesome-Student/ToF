@@ -14,7 +14,7 @@ function countdown() {
         const seconds = Math.floor(remain % 60).toString().padStart(2, '0');
         document.getElementById("timer").textContent = [hours, minutes, seconds].join(':');
     } else {
-        document.getElementById("timer").textContent = "終了しました";
+        document.getElementById("timer").textContent = "Our TJ-Program was Ended";
     }
     
 }
