@@ -2,7 +2,7 @@
 let pressStartTime;
 
 /* タイマー */
-const deadline = new Date('2023-12-20T17:30:00');
+const deadline = new Date('2023-12-20T15:30:00');
 const countdownInterval = setInterval(countdown, 1000);
 
 function countdown() {
