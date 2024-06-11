@@ -1,5 +1,7 @@
 # ToF
 
+このプロジェクトは開発を終了いたしました．
+
 # Denoのインストール
 https://github.com/jigintern/intern-dev-tutorial/blob/main/deno/README.md
 これを参考に
